@@ -1,0 +1,835 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--=============== FAVICON ===============-->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="assets/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#a789d4">
+    <!--=============== BOXICONS ===============-->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!--=============== LOCAL CAIRO FONT ===============-->
+
+<!-- Cairo Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+  }
+</style>
+    <style>
+
+/* الحاوية الرئيسية للإشعارات */
+#notifications {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* تصميم كروت الإشعارات */
+.notification-card {
+  background: var(--container-color);
+  color: var(--text-color);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  padding: 18px;
+  margin: 10px;
+  transition: 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notification-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+}
+
+/* ✅ صورة الإشعار — تعديل ذكي */
+.notif-img {
+  display: block;
+  max-width: 100%;
+  max-height: 220px;
+  height: auto;
+  width: auto;
+  object-fit: contain; /* تظهر الصورة كاملة بدون قص أو تمدد */
+  border-radius: 10px;
+  margin-bottom: 12px;
+  background: var(--container-color);
+  transition: transform 0.3s ease;
+}
+
+.notification-card:hover .notif-img {
+  transform: scale(1.02);
+}
+
+/* العنوان */
+.notification-card h3 {
+  font-size: 1.2em;
+  margin: 8px 0;
+  font-weight: 700;
+  color: var(--title-color);
+}
+
+/* النص */
+.notification-card p {
+  font-size: 1em;
+  margin: 6px 0;
+  color: var(--text-color);
+}
+
+/* التاريخ */
+.notification-card small {
+  font-size: 0.85em;
+  color: var(--text-color-light);
+}
+
+/* ✅ مظهر متجاوب للموبايل */
+@media (max-width: 600px) {
+  .notification-card {
+    max-width: 95%;
+    padding: 14px;
+    margin: 8px auto;
+  }
+  .notif-img {
+    max-height: 180px;
+  }
+}
+
+/* ✅ دعم الثيم الداكن */
+body.dark-theme {
+  --container-color: #1e1e1e;
+  --text-color: #f2f2f2;
+  --text-color-light: #bbb;
+  --title-color: #ffffff;
+  background-color: #121212;
+}
+
+/* ✅ دعم الثيم الفاتح */
+body.light-theme {
+  --container-color: #ffffff;
+  --text-color: #222222;
+  --text-color-light: #555;
+  --title-color: #111111;
+  background-color: #f7f7f7;
+}
+
+
+    </style>
+    <title></title>
+	
+	<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    document.body.classList.add("loaded");
+  });
+</script>
+
+	
+</head>
+<body>
+
+
+    <!--=============== HEADER ===============-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">TC Wasel</a>
+
+            <div class="nav__menu">
+                <ul class="nav__list">
+                    <li class="nav__item ">
+                        <a href="home.html" class="nav__link">
+                            <i class='bx bx-home'></i>
+                        </a>
+                    </li>
+
+                    <li class="nav__item ">
+                        <a href="about.html" class="nav__link">
+                            <i class='bx bx-user'></i>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="notifications.html" class="nav__link">
+                            <i class='bx bx-notification'></i>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="work.html" class="nav__link">
+                            <i class='bx bx-briefcase-alt-2'></i>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link">
+                            <i class='bx bx-message-square-dots'></i>
+                        </a>
+                    </li>
+					
+					<li class="nav__item">
+                        <a href="policies.html" class="nav__link">
+                            <i class='bx bx-detail'></i>
+                        </a>
+                    </li>
+					
+                </ul>
+            </div>
+
+            <!--=============== theme change button ===============-->
+             <i class='bx bx-moon change-theme change-theme-button' id="theme-button"></i>
+
+        </nav>
+    </header>
+
+    <!--=============== MAIN ===============-->
+    <main class="main">
+	
+	
+	
+	
+
+<!--=============== SERVICES ===============-->
+<section class="services section" id="services">
+  <span class="section__subtitle">خدماتنا</span>
+  <h2 class="section__title">ما نقدمه في T&C Garments</h2>
+
+  <div class="services__container container grid">
+
+    <!-- ========== 1. تصنيع الجينز ========== -->
+    <div class="services__card">
+      <div class="serv">
+        <h3 class="services__title">تصنيع <br> الجينز 👖</h3>
+        <span class="services__button">
+          عرض المزيد <i class='bx bx-right-arrow services__icon'></i>
+        </span>
+      </div>
+
+      <div class="services__modal">
+        <div class="services__modal-content">
+          <i class='bx bx-x services__modal-close'></i>
+          <h3 class="services__modal-title">تصنيع الجينز</h3>
+          <p class="services__modal-description">
+            نحن نختص في تصنيع منتجات الدنيم (الجينز) لصالح أبرز العلامات التجارية العالمية.  
+            ✨ قسم البحث والتطوير (R&D) لدينا يبتكر باستمرار لتقديم منتجات بجودة لا تُضاهى.
+          </p>
+          <ul class="services__modal-list">
+            <li class="services__modal-item">
+              <i class='bx bx-check-circle'></i>
+              <p class="services__modal-info">تصنيع بمعايير جودة عالمية 🔝</p>
+            </li>
+            <li class="services__modal-item">
+              <i class='bx bx-check-circle'></i>
+              <p class="services__modal-info">التعاون مع أشهر الماركات الدولية 👕</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 2. التصدير العالمي ========== -->
+    <div class="services__card">
+      <div class="serv">
+        <h3 class="services__title">التصدير <br> العالمي 🌍</h3>
+        <span class="services__button">
+          عرض المزيد <i class='bx bx-right-arrow services__icon'></i>
+        </span>
+      </div>
+
+      <div class="services__modal">
+        <div class="services__modal-content">
+          <i class='bx bx-x services__modal-close'></i>
+          <h3 class="services__modal-title">التصدير العالمي</h3>
+          <p class="services__modal-description">
+            نسعى لتوسيع نطاق صادراتنا والوصول إلى أكبر عدد من الأسواق العالمية،  
+            مع الحفاظ على أعلى مستويات الجودة والثقة في منتجاتنا. 🚢
+          </p>
+          <ul class="services__modal-list">
+            <li class="services__modal-item">
+              <i class='bx bx-check-circle'></i>
+              <p class="services__modal-info">تصدير إلى أكثر من 20 دولة حول العالم 🌎</p>
+            </li>
+            <li class="services__modal-item">
+              <i class='bx bx-check-circle'></i>
+              <p class="services__modal-info">بناء علاقات تجارية قوية مع أبرز الماركات 🏆</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 3. تطوير الموارد البشرية ========== -->
+    <div class="services__card">
+      <div class="serv">
+        <h3 class="services__title">تطوير <br> الموارد البشرية 💼</h3>
+        <span class="services__button">
+          عرض المزيد <i class='bx bx-right-arrow services__icon'></i>
+        </span>
+      </div>
+
+      <div class="services__modal">
+        <div class="services__modal-content">
+          <i class='bx bx-x services__modal-close'></i>
+          <h3 class="services__modal-title">تطوير الموارد البشرية</h3>
+          <p class="services__modal-description">
+            نُؤمن أن الاستثمار في الأفراد هو أساس النجاح الحقيقي.  
+            🌟 لذلك نعمل على برامج تدريب، تقييم أداء، وتطوير مهني يرفع كفاءة فريق العمل باستمرار.
+          </p>
+          <ul class="services__modal-list">
+            <li class="services__modal-item">
+              <i class='bx bx-check-circle'></i>
+              <p class="services__modal-info">برامج تدريبية متقدمة للقيادات المستقبلية 🎯</p>
+            </li>
+            <li class="services__modal-item">
+              <i class='bx bx-check-circle'></i>
+              <p class="services__modal-info">تقييم أداء دوري وتحفيز على التميز 💪</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 4. حل المشكلات التنظيمية ========== -->
+    <div class="services__card">
+      <div class="serv">
+        <h3 class="services__title">حل <br> المشكلات التنظيمية 🧩</h3>
+        <span class="services__button">
+          عرض المزيد <i class='bx bx-right-arrow services__icon'></i>
+        </span>
+      </div>
+
+      <div class="services__modal">
+        <div class="services__modal-content">
+          <i class='bx bx-x services__modal-close'></i>
+          <h3 class="services__modal-title">حل المشكلات التنظيمية</h3>
+          <p class="services__modal-description">
+            🤝 نحن نساعد الإدارات على تجاوز التحديات اليومية عبر تحليل الأسباب الجذرية ووضع خطط تحسين عملية.  
+            هدفنا هو خلق بيئة عمل متناغمة تُشجّع على الإنتاجية والتعاون.
+          </p>
+          <ul class="services__modal-list">
+            <li class="services__modal-item">
+              <i class='bx bx-check-circle'></i>
+              <p class="services__modal-info">تحليل الأداء وحل النزاعات الإدارية 🔍</p>
+            </li>
+            <li class="services__modal-item">
+              <i class='bx bx-check-circle'></i>
+              <p class="services__modal-info">تصميم حلول فعّالة لتحسين بيئة العمل 🌱</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+        <!--=============== WORK (HR Projects) ===============-->
+<section class="work section" id="work">
+  <span class="section__subtitle">قسم الموارد البشرية</span>
+  <h2 class="section__title">أحدث مبادراتنا في تطوير الكوادر 💼</h2>
+
+  <div class="work__filters">
+    <span class="work__item active-work" data-filter='all'>الجميع</span>
+    <span class="work__item" data-filter='.training'>التدريب</span>
+    <span class="work__item" data-filter='.engagement'>التحفيز</span>
+    <span class="work__item" data-filter='.recruitment'>التوظيف</span>
+    <span class="work__item" data-filter='.development'>التطوير</span>
+  </div>
+
+  <div class="work__container container grid">
+
+    <!-- 1 -->
+    <div class="work__card mix training" data-description="نقوم بتنظيم برامج تدريبية متكاملة لتنمية مهارات الموظفين في جميع المستويات، مع مدربين محترفين لضمان أعلى كفاءة. 💪" data-title="برنامج تدريب الموظفين">
+      <img src="assets/img/hr-training.jpeg" alt="" class="work__img">
+      <h3 class="work__title">برنامج التدريب والتأهيل</h3>
+    </div>
+
+    <!-- 2 -->
+    <div class="work__card mix engagement" data-description="مبادرة تهدف لخلق بيئة عمل مليئة بالإيجابية والانتماء، عبر فعاليات وأنشطة ترفيهية وتشجيعية داخل الشركة. 🎉" data-title="تحفيز الموظفين">
+      <img src="assets/img/hr-engagement.jpeg" alt="" class="work__img">
+      <h3 class="work__title">مبادرات التحفيز والتقدير</h3>
+    </div>
+
+    <!-- 3 -->
+    <div class="work__card mix recruitment" data-description="نطبق أحدث أساليب التوظيف الرقمي لاختيار أفضل الكفاءات من السوق المحلي والعالمي، عبر عملية دقيقة ومنظمة. 👥" data-title="التوظيف الذكي">
+      <img src="assets/img/hr-recruitment.jpeg" alt="" class="work__img">
+      <h3 class="work__title">التوظيف واستقطاب الكفاءات</h3>
+    </div>
+
+    <!-- 4 -->
+    <div class="work__card mix development" data-description="نركز على تطوير مهارات القيادة وإدارة الفرق عبر برامج تطوير قيادية احترافية مصممة خصيصًا لقادة المستقبل. 🚀" data-title="تطوير القيادات">
+      <img src="assets/img/hr-development.jpeg" alt="" class="work__img">
+      <h3 class="work__title">التطوير الإداري والقيادي</h3>
+    </div>
+
+    <!-- 5 -->
+    <div class="work__card mix engagement" data-description="نؤمن أن التقدير هو أساس الولاء، لذلك نقوم بتكريم المتميزين شهريًا وتعزيز روح الفريق الواحد. 🏆" data-title="جوائز التميز">
+      <img src="assets/img/hr-awards.jpeg" alt="" class="work__img">
+      <h3 class="work__title">جوائز التميز والإنجاز</h3>
+    </div>
+	
+	<!-- 6 -->
+    <div class="work__card mix development" data-description="نضع رفاهية الموظفين في مقدمة أولوياتنا من خلال مبادرات الصحة النفسية والجسدية وبرامج التوازن بين الحياة والعمل. 🌿" data-title="رفاهية الموظفين">
+      <img src="assets/img/hr-wellness.jpeg" alt="" class="work__img">
+      <h3 class="work__title">الصحة والرفاهية في العمل</h3>
+    </div>
+
+  </div>
+</section>
+
+<!-- Dialog لعرض التفاصيل -->
+<div id="workModal" class="work-modal">
+  <div class="work-modal-content">
+    <i class='bx bx-x work-modal-close'></i>
+    <h3 id="modalTitle" class="work-modal-title"></h3>
+    <p id="modalDescription" class="work-modal-description"></p>
+  </div>
+</div>
+
+<style>
+  /* تنسيقات المودال */
+  .work-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  .work-modal.active { display: flex; }
+
+  .work-modal-content {
+    background: var(--container-color);
+    color: var(--text-color);
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    animation: fadeIn 0.4s ease;
+  }
+
+  .work-modal-close {
+    position: absolute;
+    top: 15px; right: 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--first-color);
+  }
+
+  .work-modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    color: var(--first-color);
+  }
+
+  .work-modal-description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  .work__card {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .work__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 20px rgba(139,0,0,0.3);
+  }
+  /* تصغير حجم صور قسم أعمال الموارد البشرية */
+.work__img {
+  width: 90%;              /* تصغير العرض بنسبة بسيطة */
+  height: auto;
+  max-height: 220px;       /* تحديد أقصى ارتفاع */
+  object-fit: cover;       /* لضبط الصورة داخل الإطار */
+  border-radius: 12px;
+  margin: 0 auto;          /* توسيط الصورة داخل الكارت */
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.work__card:hover .work__img {
+  transform: scale(1.03);  /* تكبير بسيط عند المرور بالماوس */
+}
+
+</style>
+
+<script>
+  // عند الضغط على الصورة
+  document.querySelectorAll(".work__card").forEach(card => {
+    card.addEventListener("click", () => {
+      const modal = document.getElementById("workModal");
+      document.getElementById("modalTitle").textContent = card.getAttribute("data-title");
+      document.getElementById("modalDescription").textContent = card.getAttribute("data-description");
+      modal.classList.add("active");
+    });
+  });
+
+  // غلق المودال
+  document.querySelector(".work-modal-close").addEventListener("click", () => {
+    document.getElementById("workModal").classList.remove("active");
+  });
+</script>
+
+
+        <!--=============== TESTIMONIALS ===============-->
+        <section class="testimonial section">
+            <span class="section__subtitle">اراء عملاؤنا</span>
+            <h2 class="section__title">الشهادات</h2>
+
+            <div class="testimonial__container container swiper">
+  <div class="swiper-wrapper">
+    
+    <div class="testimonial__card swiper-slide">
+      <img src="assets/img/avatar-1.png" alt="" class="testimonial__img">
+      <h3 class="testimonial__name">احمد القاضي</h3>
+      <p class="testimonial__description">
+        تجربة أكثر من رائعة! التنظيم والاهتمام بالتفاصيل فاق كل التوقعات. الفريق محترف فعلاً ويعرف كيف يقدّم الجودة في كل خطوة.
+      </p>
+    </div>
+
+    <div class="testimonial__card swiper-slide">
+      <img src="assets/img/avatar-2.jpg" alt="" class="testimonial__img">
+      <h3 class="testimonial__name">سارة عبد الحميد</h3>
+      <p class="testimonial__description">
+        بصراحة انبهرت بالنتيجة النهائية! العمل متقن جداً والتواصل ممتاز طوال فترة التنفيذ. شكراً على الجهد والإبداع الجميل.
+      </p>
+    </div>
+
+    <div class="testimonial__card swiper-slide">
+      <img src="assets/img/avatar-3.jpg" alt="" class="testimonial__img">
+      <h3 class="testimonial__name">كريم حسن</h3>
+      <p class="testimonial__description">
+        مشروع احترافي بكل المقاييس! لم أتوقع هذه السرعة والدقة في الأداء. فعلاً مثال يُحتذى في الالتزام والإبداع.
+      </p>
+    </div>
+
+    <div class="testimonial__card swiper-slide">
+      <img src="assets/img/avatar-4.jpg" alt="" class="testimonial__img">
+      <h3 class="testimonial__name">دينا شريف</h3>
+      <p class="testimonial__description">
+        العمل رائع بكل التفاصيل، من التصميم إلى الأداء. واضح إن فيه حب حقيقي في كل خطوة. شكراً على تجربة لا تُنسى.
+      </p>
+    </div>
+
+    <div class="testimonial__card swiper-slide">
+      <img src="assets/img/avatar-5.jpg" alt="" class="testimonial__img">
+      <h3 class="testimonial__name">محمود علي</h3>
+      <p class="testimonial__description">
+        الجودة خرافية! تعامل احترافي وسريع، والفريق عنده حس فني عالي جداً. أكيد مش آخر تعامل بينا إن شاء الله.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Pagination -->
+  <div class="swiper-pagination"></div>
+</div>
+
+
+        </section>
+
+
+
+
+
+</main>
+
+
+
+
+<!--=============== FOOTER ===============-->
+<footer class="footer">
+  <div class="footer__container container">
+    <h1 class="footer__title">TC Wasel</h1>
+
+    <!-- زر فتح القائمة -->
+    <button class="footer__menu-btn" id="footerMenuBtn">
+      <i class='bx bx-plus'></i>
+    </button>
+
+    <!-- قائمة الروابط -->
+    <ul class="footer__list" id="footerMenu">
+      <li class="footer__item"><a href="home.html" class="footer__link">الرئيسية</a></li>
+      <li class="footer__item"><a href="about.html" class="footer__link">عنا</a></li>
+      <li class="footer__item"><a href="notifications.html" class="footer__link">الإشعارات</a></li>
+      <li class="footer__item"><a href="work.html" class="footer__link">أعمالنا</a></li>
+      <li class="footer__item"><a href="contact.html" class="footer__link">اتصل بنا</a></li>
+      <li class="footer__item"><a href="policies.html" class="footer__link">سياساتنا</a></li>
+      <li class="footer__item"><a href="salary/index.html" class="footer__link">سرك المرتب</a></li>
+      <li class="footer__item"><a href="bonus/index.html" class="footer__link">البونص</a></li>
+    </ul>
+
+    <!-- روابط التواصل -->
+    <ul class="footer__social">
+      <li class="footer__social-item">
+        <a href="https://www.facebook.com/share/1FNMYHbPPs/?mibextid=wwXIfr" target="_blank" class="footer__social-link facebook">
+          <i class='bx bxl-facebook'></i>
+        </a>
+      </li>
+      <li class="footer__social-item">
+        <a href="https://www.instagram.com/tcgarments_egy?igsh=MWhocGhodHBwaG93dw==" target="_blank" class="footer__social-link instagram">
+          <i class='bx bxl-instagram'></i>
+        </a>
+      </li>
+      <li class="footer__social-item">
+        <a href="https://www.linkedin.com/company/tc-garments" target="_blank" class="footer__social-link linkedin">
+          <i class='bx bxl-linkedin'></i>
+        </a>
+      </li>
+      
+    </ul>
+
+    <!-- حقوق الملكية -->
+    <span class="footer__copy">
+      &#169; 2026 
+      <a href="https://www.facebook.com/kadinioo" target="_blank" class="footer__credit">
+        Kadysoft - Ahmed Elkady
+      </a>
+      . جميع الحقوق محفوظة.
+    </span>
+	<ul class="footer__social">
+	<!-- دعم واتساب -->
+      <li class="footer__social-item">
+        <a href="https://wa.me/201555266002?text=مرحباً،%20أحتاج%20دعم%20فني%20من%20TC%20Wasel" 
+           target="_blank" 
+           class="footer__social-link whatsapp">
+          <i class='bx bxl-whatsapp'></i>
+        </a>
+      </li>
+	</ul>
+  </div>
+</footer>
+
+<style>
+.footer {
+  background: linear-gradient(135deg, #8b0000, #b22222);
+  color: #fff;
+  text-align: center;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer__title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+/* زر القائمة */
+.footer__menu-btn {
+  background: #fff;
+  color: #8b0000;
+  font-size: 1.8rem;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.footer__menu-btn:hover {
+  transform: rotate(45deg) scale(1.1);
+}
+
+/* قائمة الروابط */
+.footer__list {
+  list-style: none;
+  margin-top: 1rem;
+  padding: 0;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 10px 0;
+  width: 80%;
+  max-width: 320px;
+  backdrop-filter: blur(8px);
+}
+
+.footer__list.show {
+  display: flex;
+}
+
+.footer__link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.footer__link:hover {
+  color: #ffd6d6;
+}
+
+/* السوشيال */
+.footer__social {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  gap: 1rem;
+}
+
+.footer__social-link {
+  font-size: 1.6rem;
+  color: #fff;
+  transition: transform 0.3s, background 0.3s;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.footer__social-link:hover {
+  transform: scale(1.2);
+}
+
+/* ألوان خاصة بكل منصة */
+.facebook:hover { background: #1877f2; }
+.instagram:hover { background: #e1306c; }
+.linkedin:hover { background: #0a66c2; }
+.whatsapp:hover { background: #25d366; }
+
+/* حقوق الملكية */
+.footer__copy {
+  font-size: 0.9rem;
+  color: #f5f5f5;
+  margin-top: 1rem;
+}
+
+.footer__credit {
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.footer__credit:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* للموبايل */
+@media (min-width: 768px) {
+  .footer__list {
+    display: flex !important;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    background: transparent;
+    width: auto;
+    backdrop-filter: none;
+  }
+
+  .footer__menu-btn {
+    display: none;
+  }
+}
+</style>
+
+<script>
+document.getElementById("footerMenuBtn").addEventListener("click", () => {
+  document.getElementById("footerMenu").classList.toggle("show");
+});
+</script>
+
+	
+	<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const themeButton = document.getElementById("theme-button");
+    const lightTheme = "light-theme";
+    const iconTheme = "bx-sun";
+
+    // قيم الثيم المخزنة مسبقًا
+    const selectedTheme = localStorage.getItem("selected-theme");
+    const selectedIcon = localStorage.getItem("selected-icon");
+
+    // دوال التحقق من الثيم الحالي
+    const getCurrentTheme = () =>
+      document.body.classList.contains(lightTheme) ? "dark" : "light";
+    const getCurrentIcon = () =>
+      themeButton.classList.contains(iconTheme) ? "bx bx-moon" : "bx bx-sun";
+
+    // لو المستخدم اختار ثيم قبل كده
+    if (selectedTheme) {
+      document.body.classList[selectedTheme === "dark" ? "add" : "remove"](lightTheme);
+      themeButton.classList[selectedIcon === "bx bx-moon" ? "add" : "remove"](iconTheme);
+    }
+
+    // عند الضغط على الزر
+    themeButton.addEventListener("click", () => {
+      document.body.classList.toggle(lightTheme);
+      themeButton.classList.toggle(iconTheme);
+      // نحفظ الثيم الحالي
+      localStorage.setItem("selected-theme", getCurrentTheme());
+      localStorage.setItem("selected-icon", getCurrentIcon());
+    });
+  });
+</script>
+
+	
+	
+
+    <!--=============== SCROLLREVEAL ===============-->
+    <!-- <script src="assets/js/scrollreveal.min.js"></script> -->
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+    <!--=============== SWIPER JS ===============-->
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <!--=============== MIXITUP FILTER ===============-->
+    <script src="assets/js/mixitup.min.js"></script>
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
+	
+
+</body>
+
+
+</html>
+
+
+
+

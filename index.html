@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>❤️‍🔥 تسجيل الدخول — TC Garments</title>
+<style>
+  /* 🌑 الخلفية العامة */
+  body {
+    font-family: "Cairo", sans-serif;
+    background: radial-gradient(circle at center, #1a0008 0%, #0d0003 100%);
+    color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  /* 🩸 الكارد */
+  .card {
+    background: linear-gradient(145deg, #2b0008, #1a0004);
+    border-radius: 22px;
+    box-shadow: 0 10px 25px rgba(120, 0, 0, 0.6);
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    border: 1px solid rgba(255, 0, 0, 0.15);
+  }
+
+  /* 🔥 اللوجو */
+  .logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: -80px auto 20px;
+    border: 3px solid #ff2b2b;
+    background-color: #3a0009;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    color: #ff4d4d;
+    font-weight: 700;
+    font-size: 1.6em;
+  }
+
+  /* 🧾 الحقول */
+  input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    background: rgba(80, 0, 10, 0.6);
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  input:focus {
+    box-shadow: 0 0 10px #ff4d4d;
+    background: rgba(120, 0, 20, 0.7);
+  }
+
+  input::placeholder {
+    color: #bbb;
+  }
+
+  /* ❤️ الأزرار */
+  button {
+    width: 95%;
+    padding: 12px;
+    background: linear-gradient(90deg, #a10000, #ff1e1e);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 17px;
+    margin-top: 10px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  button:hover:not(:disabled) {
+    background: linear-gradient(90deg, #cc0000, #ff4545);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 50, 50, 0.4);
+  }
+
+  button:disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
+
+  p {
+    color: #ffbaba;
+    margin-top: 10px;
+    min-height: 24px;
+    font-weight: 600;
+  }
+
+  /* ⚫ الفوتر */
+  .modern-footer {
+    background: linear-gradient(90deg, #2a0004, #400008);
+    color: #fff;
+    text-align: center;
+    padding: 15px 10px;
+    font-family: "Cairo", sans-serif;
+    font-size: 14px;
+    margin-top: 50px;
+    border-top: 1px solid rgba(255, 0, 0, 0.2);
+    box-shadow: 0 -2px 10px rgba(80, 0, 0, 0.4);
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-link {
+    color: #ff4d4d;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: #ff6666;
+    text-shadow: 0 0 10px rgba(255, 80, 80, 0.7);
+  }
+
+  .support-btn {
+    background: #25d366;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .support-btn:hover {
+    background: #1ebe5d;
+    transform: scale(1.08);
+    box-shadow: 0 0 10px rgba(37, 211, 102, 0.6);
+  }
+
+  @media (max-width: 500px) {
+    .card {
+      padding: 22px;
+    }
+    .logo {
+      width: 85px;
+      height: 85px;
+      margin-top: -60px;
+    }
+    button {
+      font-size: 15px;
+    }
+  }
+</style>
+
+
+<!-- manifest -->
+<link rel="manifest" href="/manifest.json">
+<!-- theme color -->
+<meta name="theme-color" content="#b30021">
+<!-- ====== iOS specific ====== -->
+
+<!-- أيقونات iPhone -->
+<link rel="apple-touch-icon" sizes="180x180" href="icons/hrrr_180.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icons/hrrr_152.png">
+<link rel="apple-touch-icon" sizes="120x120" href="icons/hrrr_120.png">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="TC Wasel">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+
+
+
+</head>
+<body>
+
+<div class="card">
+  <img src="hrrr.png" alt="Logo" class="logo">
+
+  <h2>👋 تسجيل الدخول</h2>
+  <input type="text" id="name" placeholder="🧑 الاسم">
+  <input type="text" id="code" placeholder="💼 الكود الخاص بالموظف">
+  <button id="registerBtn">🚀 تسجيل الدخول</button>
+  <p id="status"></p>
+</div>
+
+
+<footer class="modern-footer">
+  <div class="footer-content">
+    <p>
+      &copy; 2026 كل الحقوق محفوظة لـ 
+      <a href="https://www.facebook.com/kadinioo" target="_blank" class="footer-link">
+        ❤️ Kadysoft Ltd - Ahmed Elkady
+      </a>
+    </p>
+    <a href="https://wa.me/201555266002?text=مرحباً،%20أحتاج%20دعم%20فني%20من%20Kadysoft%20🔥" 
+       target="_blank" 
+       class="support-btn">
+      💬 تواصل مع الدعم الفني
+    </a>
+  </div>
+</footer>
+
+
+<script>
+const API_URL = "https://corsproxy.io/?" + encodeURIComponent(
+  "https://script.google.com/macros/s/AKfycby8B5XNXUvcTgeeQjgd4aHxyonwqQvN21sHQ0Uy4RAn92opu1hxaULfTmaGDhMSMswfDw/exec"
+);
+
+const nameInput = document.getElementById("name");
+const codeInput = document.getElementById("code");
+const btn = document.getElementById("registerBtn");
+const status = document.getElementById("status");
+
+// عند تحميل الصفحة
+window.addEventListener("DOMContentLoaded", () => {
+  const savedName = localStorage.getItem("name");
+  const savedCode = localStorage.getItem("code");
+
+  if (savedName && savedCode) {
+    nameInput.value = savedName;
+    codeInput.value = savedCode;
+    checkStatus(savedName, savedCode);
+  }
+});
+
+btn.addEventListener("click", async () => {
+  const name = nameInput.value.trim();
+  const code = codeInput.value.trim();
+
+  if (!name || !code) {
+    alert("⚠️ من فضلك أدخل الاسم والكود أولاً.");
+    return;
+  }
+
+  btn.disabled = true;
+  status.textContent = "⏳ جارٍ التسجيل...";
+
+  try {
+    const res = await fetch(`${API_URL}?action=register&name=${encodeURIComponent(name)}&code=${encodeURIComponent(code)}`);
+    const data = await res.json();
+
+    localStorage.setItem("name", name);
+    localStorage.setItem("code", code);
+
+    handleStatus(data.status);
+  } catch (err) {
+    console.error(err);
+    status.textContent = "🚫 فشل الاتصال بالخادم.";
+    btn.disabled = false;
+  }
+});
+
+async function checkStatus(name, code) {
+  status.textContent = "🔍 جارٍ التحقق من الحالة...";
+  disableInputs();
+
+  try {
+    const res = await fetch(`${API_URL}?action=check&name=${encodeURIComponent(name)}&code=${encodeURIComponent(code)}`);
+    const data = await res.json();
+    handleStatus(data.status);
+  } catch (err) {
+    console.error(err);
+    status.textContent = "⚠️ فشل الاتصال بالخادم.";
+    enableInputs();
+  }
+}
+
+function handleStatus(state) {
+  switch (state) {
+    case "نعم":
+      status.textContent = "✅ تمت الموافقة من الإدارة. جاري التحويل...";
+      setTimeout(() => window.location.href = "index2.html", 1200);
+      break;
+    case "لا":
+      status.textContent = "❌ تم رفض الطلب.";
+      localStorage.clear();
+      enableInputs();
+      break;
+    case "لسه":
+      status.textContent = "⌛ في انتظار موافقة الإدارة...";
+      disableInputs();
+      break;
+    default:
+      status.textContent = "🤔 لم يتم العثور على الحالة.";
+      localStorage.clear();
+      enableInputs();
+      break;
+  }
+}
+
+function disableInputs() {
+  nameInput.disabled = true;
+  codeInput.disabled = true;
+  btn.disabled = true;
+}
+
+function enableInputs() {
+  nameInput.disabled = false;
+  codeInput.disabled = false;
+  btn.disabled = false;
+}
+</script>
+
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .then(() => console.log('Service Worker registered'))
+    .catch(e => console.warn('SW failed:', e));
+}
+</script>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

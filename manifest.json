@@ -1,0 +1,11 @@
+{
+  "name": "TC Wasel",
+"short_name": "TC Wasel",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070406",
+  "theme_color": "#b30021",
+  "icons": [
+    { "src": "hrrr.png", "sizes": "625x625", "type": "image/png" }
+  ]
+}

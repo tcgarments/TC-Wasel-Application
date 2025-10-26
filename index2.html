@@ -1,0 +1,883 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--=============== FAVICON ===============-->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="assets/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#a789d4">
+    <!--=============== BOXICONS ===============-->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!--=============== LOCAL CAIRO FONT ===============-->
+
+<!-- Cairo Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+  }
+</style>
+    <style>
+
+
+
+/* الحاوية الرئيسية للإشعارات */
+#notifications {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* تصميم كروت الإشعارات */
+.notification-card {
+  background: var(--container-color);
+  color: var(--text-color);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  padding: 18px;
+  margin: 10px;
+  transition: 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notification-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+}
+
+/* صورة الإشعار */
+.notif-img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+/* العنوان */
+.notification-card h3 {
+  font-size: 1.2em;
+  margin: 8px 0;
+  font-weight: 700;
+  color: var(--title-color);
+}
+
+/* النص */
+.notification-card p {
+  font-size: 1em;
+  margin: 6px 0;
+  color: var(--text-color);
+}
+
+/* التاريخ */
+.notification-card small {
+  font-size: 0.85em;
+  color: var(--text-color-light);
+}
+
+/* ✅ مظهر متجاوب للموبايل */
+@media (max-width: 600px) {
+  .notification-card {
+    max-width: 95%;
+    padding: 14px;
+    margin: 8px auto;
+  }
+}
+
+/* ✅ دعم الثيم الداكن */
+body.dark-theme {
+  --container-color: #1e1e1e;
+  --text-color: #f2f2f2;
+  --text-color-light: #bbb;
+  --title-color: #ffffff;
+  background-color: #121212;
+}
+
+/* ✅ دعم الثيم الفاتح */
+body.light-theme {
+  --container-color: #ffffff;
+  --text-color: #222222;
+  --text-color-light: #555;
+  --title-color: #111111;
+  background-color: #f7f7f7;
+}
+
+
+
+
+
+
+/*=============== IMAGE SLIDER SECTION ===============*/
+.image-slider {
+  width: 100%;
+  height: 150px;
+  margin: 20px auto;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background-color: var(--card-bg-color);
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-slider .swiper {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}
+
+.image-slider .swiper-slide {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}
+
+.image-slider .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}
+
+/* ✅ بدون pagination أو أزرار لتكون نظيفة */
+.image-slider .swiper-pagination {
+  display: none;
+}
+
+/*=============== LIGHT THEME COLORS ===============*/
+:root {
+  --card-bg-color: #ffffff;
+  --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/*=============== DARK THEME COLORS ===============*/
+body.dark-theme {
+  --card-bg-color: #1e1e1e;
+  --card-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+
+
+    </style>
+	
+	
+	
+	
+    <title></title>
+	
+	
+
+
+
+		
+</head>
+<body>
+
+<!-- ✅ Splash Screen -->
+<div id="splash">
+  <img src="assets/img/tclight.jpg" alt="Splash Image">
+</div>
+
+
+<!-- ✅ Splash Screen Script -->
+<script>
+  window.addEventListener("load", function() {
+    setTimeout(() => {
+      document.body.classList.add("loaded");
+    }, 4000); // 4 ثواني
+  });
+</script>
+
+    <!--=============== HEADER ===============-->
+    <header class="header" id="header">
+	
+        <nav class="nav container">
+            <a href="#" class="nav__logo">TC Wasel</a>
+
+            <div class="nav__menu">
+                <ul class="nav__list">
+                    <li class="nav__item ">
+                        <a href="home.html" class="nav__link">
+                            <i class='bx bx-home'></i>
+                        </a>
+                    </li>
+
+                    <li class="nav__item ">
+                        <a href="about.html" class="nav__link">
+                            <i class='bx bx-user'></i>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="notifications.html" class="nav__link">
+                            <i class='bx bx-notification'></i>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="work.html" class="nav__link">
+                            <i class='bx bx-briefcase-alt-2'></i>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link">
+                            <i class='bx bx-message-square-dots'></i>
+                        </a>
+                    </li>
+					
+					<li class="nav__item">
+                        <a href="policies.html" class="nav__link">
+                            <i class='bx bx-detail'></i>
+                        </a>
+                    </li>
+					
+                </ul>
+            </div>
+
+            <!--=============== theme change button ===============-->
+            <i class='bx bx-moon change-theme change-theme-button' id="theme-button"></i>
+
+        </nav>
+    </header>
+
+
+    <!--=============== MAIN ===============-->
+    <main class="main">
+	
+	<br><br>
+	<!--=============== IMAGE SLIDER (from JSON) ===============-->
+<section class="image-slider" id="image-slider">
+  <div class="swiper imageSwiper">
+    <div class="swiper-wrapper" id="imageSliderWrapper">
+      <!-- الصور هتتحمل ديناميكيًا من ملف JSON -->
+    </div>
+  </div>
+</section>
+
+
+	
+        <!--=============== HOME ===============-->
+        <section class="home section" id="home">
+            <div class="home__container container grid">
+                <div class="home__data">
+                    <span class="home__greeting">اهلا بيك, احنا</span>
+                    <h1 class="home__name">HR Team Of</h1>
+					<h1 class="home__name">T&C Garments Company</h1>
+                    <h3 class="home__education">موجودين علشان نساعدك ونحل مشاكلك</h3>
+
+                    <div class="home__button">
+                        <a href="about.html" class="button">عنا</a>
+                    </div>
+                </div>
+
+                <div class="home__handle">
+                    <img src="assets/img/perfil.png" alt="" width="500 px" height="700 px" class="home__img">
+                </div>
+
+                <div class="home__social">
+                    <a href="https://www.linkedin.com/company/tc-garments" target="_blank" class="home__social-link">
+                        <i class='bx bxl-linkedin'></i>
+                    </a>
+                    <a href="https://www.facebook.com/share/1FNMYHbPPs/?mibextid=wwXIfr" target="_blank" class="home__social-link">
+                        <i class='bx bxl-facebook'></i>
+                    </a>
+                    <a href="https://www.instagram.com/tcgarments_egy?igsh=MWhocGhodHBwaG93dw==" target="_blank" class="home__social-link">
+                        <i class='bx bxl-instagram'></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+</main>
+
+
+
+
+<!--=============== FOOTER ===============-->
+<footer class="footer">
+  <div class="footer__container container">
+    <h1 class="footer__title">TC Wasel</h1>
+
+    <!-- زر فتح القائمة -->
+    <button class="footer__menu-btn" id="footerMenuBtn">
+      <i class='bx bx-plus'></i>
+    </button>
+
+    <!-- قائمة الروابط -->
+    <ul class="footer__list" id="footerMenu">
+      <li class="footer__item"><a href="home.html" class="footer__link">الرئيسية</a></li>
+      <li class="footer__item"><a href="about.html" class="footer__link">عنا</a></li>
+      <li class="footer__item"><a href="notifications.html" class="footer__link">الإشعارات</a></li>
+      <li class="footer__item"><a href="work.html" class="footer__link">أعمالنا</a></li>
+      <li class="footer__item"><a href="contact.html" class="footer__link">اتصل بنا</a></li>
+      <li class="footer__item"><a href="policies.html" class="footer__link">سياساتنا</a></li>
+      <li class="footer__item"><a href="salary/index.html" class="footer__link">سرك المرتب</a></li>
+      <li class="footer__item"><a href="bonus/index.html" class="footer__link">البونص</a></li>
+    </ul>
+
+    <!-- روابط التواصل -->
+    <ul class="footer__social">
+      <li class="footer__social-item">
+        <a href="https://www.facebook.com/share/1FNMYHbPPs/?mibextid=wwXIfr" target="_blank" class="footer__social-link facebook">
+          <i class='bx bxl-facebook'></i>
+        </a>
+      </li>
+      <li class="footer__social-item">
+        <a href="https://www.instagram.com/tcgarments_egy?igsh=MWhocGhodHBwaG93dw==" target="_blank" class="footer__social-link instagram">
+          <i class='bx bxl-instagram'></i>
+        </a>
+      </li>
+      <li class="footer__social-item">
+        <a href="https://www.linkedin.com/company/tc-garments" target="_blank" class="footer__social-link linkedin">
+          <i class='bx bxl-linkedin'></i>
+        </a>
+      </li>
+      
+    </ul>
+
+    <!-- حقوق الملكية -->
+    <span class="footer__copy">
+      &#169; 2026 
+      <a href="https://www.facebook.com/kadinioo" target="_blank" class="footer__credit">
+        Kadysoft - Ahmed Elkady
+      </a>
+      . جميع الحقوق محفوظة.
+    </span>
+	<ul class="footer__social">
+	<!-- دعم واتساب -->
+      <li class="footer__social-item">
+        <a href="https://wa.me/201555266002?text=مرحباً،%20أحتاج%20دعم%20فني%20من%20TC%20Wasel" 
+           target="_blank" 
+           class="footer__social-link whatsapp">
+          <i class='bx bxl-whatsapp'></i>
+        </a>
+      </li>
+	</ul>
+  </div>
+</footer>
+
+<style>
+.footer {
+  background: linear-gradient(135deg, #8b0000, #b22222);
+  color: #fff;
+  text-align: center;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer__title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+/* زر القائمة */
+.footer__menu-btn {
+  background: #fff;
+  color: #8b0000;
+  font-size: 1.8rem;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.footer__menu-btn:hover {
+  transform: rotate(45deg) scale(1.1);
+}
+
+/* قائمة الروابط */
+.footer__list {
+  list-style: none;
+  margin-top: 1rem;
+  padding: 0;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 10px 0;
+  width: 80%;
+  max-width: 320px;
+  backdrop-filter: blur(8px);
+}
+
+.footer__list.show {
+  display: flex;
+}
+
+.footer__link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.footer__link:hover {
+  color: #ffd6d6;
+}
+
+/* السوشيال */
+.footer__social {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  gap: 1rem;
+}
+
+.footer__social-link {
+  font-size: 1.6rem;
+  color: #fff;
+  transition: transform 0.3s, background 0.3s;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.footer__social-link:hover {
+  transform: scale(1.2);
+}
+
+/* ألوان خاصة بكل منصة */
+.facebook:hover { background: #1877f2; }
+.instagram:hover { background: #e1306c; }
+.linkedin:hover { background: #0a66c2; }
+.whatsapp:hover { background: #25d366; }
+
+/* حقوق الملكية */
+.footer__copy {
+  font-size: 0.9rem;
+  color: #f5f5f5;
+  margin-top: 1rem;
+}
+
+.footer__credit {
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.footer__credit:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* للموبايل */
+@media (min-width: 768px) {
+  .footer__list {
+    display: flex !important;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    background: transparent;
+    width: auto;
+    backdrop-filter: none;
+  }
+
+  .footer__menu-btn {
+    display: none;
+  }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const btn = document.getElementById("footerMenuBtn");
+  const menu = document.getElementById("footerMenu");
+
+  if (btn && menu) {
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("show");
+    });
+  }
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+
+
+
+
+/* ✅ تنسيق خاص للموبايل */
+@media (min-width: 768px) {
+  .footer__list {
+    display: flex !important;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    background: transparent;
+    width: auto;
+    backdrop-filter: none;
+  }
+
+  .footer__menu-btn {
+    display: none;
+  }
+}
+
+
+
+
+/* ✅ Splash Screen Style */
+#splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff; /* لون الخلفية */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#splash img {
+  width: 180px; /* حجم الصورة */
+  height: auto;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+body.loaded #splash {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+
+
+
+</style>
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const themeButton = document.getElementById("theme-button");
+    const lightTheme = "light-theme";
+    const iconTheme = "bx-sun";
+
+    // قيم الثيم المخزنة مسبقًا
+    const selectedTheme = localStorage.getItem("selected-theme");
+    const selectedIcon = localStorage.getItem("selected-icon");
+
+    // دوال التحقق من الثيم الحالي
+    const getCurrentTheme = () =>
+      document.body.classList.contains(lightTheme) ? "dark" : "light";
+    const getCurrentIcon = () =>
+      themeButton.classList.contains(iconTheme) ? "bx bx-moon" : "bx bx-sun";
+
+    // لو المستخدم اختار ثيم قبل كده
+    if (selectedTheme) {
+      document.body.classList[selectedTheme === "dark" ? "add" : "remove"](lightTheme);
+      themeButton.classList[selectedIcon === "bx bx-moon" ? "add" : "remove"](iconTheme);
+    }
+
+    // عند الضغط على الزر
+    themeButton.addEventListener("click", () => {
+      document.body.classList.toggle(lightTheme);
+      themeButton.classList.toggle(iconTheme);
+      // نحفظ الثيم الحالي
+      localStorage.setItem("selected-theme", getCurrentTheme());
+      localStorage.setItem("selected-icon", getCurrentIcon());
+    });
+  });
+</script>
+
+
+
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const jsonUrl = "https://raw.githubusercontent.com/tcrecruitment2025/tcprojects/main/images.json"; // 🔁 غيّر بالرابط الفعلي للـ JSON على GitHub
+
+    fetch(jsonUrl)
+      .then(response => response.json())
+      .then(data => {
+        const wrapper = document.getElementById("imageSliderWrapper");
+
+        if (data.images && Array.isArray(data.images)) {
+          data.images.forEach(url => {
+            const slide = document.createElement("div");
+            slide.classList.add("swiper-slide");
+            slide.innerHTML = `<img src="${url}" alt="Slider Image">`;
+            wrapper.appendChild(slide);
+          });
+
+          // تفعيل السلايدر بعد تحميل الصور
+          new Swiper(".imageSwiper", {
+            loop: true,
+            autoplay: {
+              delay: 10000,
+              disableOnInteraction: false,
+            },
+            speed: 1000,
+            effect: "slide",
+          });
+        }
+      })
+      .catch(error => {
+        console.error("❌ خطأ أثناء تحميل ملف JSON:", error);
+      });
+  });
+</script>
+
+
+
+
+
+<!-- ✅ نافذة تكبير الصورة -->
+<div id="imageModal" class="image-modal">
+  <span class="close-modal">&times;</span>
+  <img class="modal-content" id="modalImg">
+  <div class="zoom-controls">
+    <button id="zoomIn">+</button>
+    <button id="zoomOut">−</button>
+  </div>
+</div>
+
+<style>
+/* ✅ نافذة الصورة */
+.image-modal {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+  backdrop-filter: blur(4px);
+}
+
+/* ✅ الصورة داخل النافذة */
+.image-modal img {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 80%;
+  transition: transform 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+
+/* ✅ زر الإغلاق */
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: #ff4444;
+}
+
+/* ✅ أزرار التكبير والتصغير */
+.zoom-controls {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+.zoom-controls button {
+  background-color: #fff;
+  color: #222;
+  border: none;
+  font-size: 28px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.zoom-controls button:hover {
+  background-color: #ddd;
+  transform: scale(1.1);
+}
+
+/* ✅ استجابة للموبايل */
+@media (max-width: 600px) {
+  .zoom-controls button {
+    width: 45px;
+    height: 45px;
+    font-size: 24px;
+  }
+  .close-modal {
+    font-size: 32px;
+    right: 25px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImg");
+  const closeModal = document.querySelector(".close-modal");
+  const zoomIn = document.getElementById("zoomIn");
+  const zoomOut = document.getElementById("zoomOut");
+  let zoomLevel = 1;
+
+  // عند الضغط على أي صورة داخل السلايدر
+  document.body.addEventListener("click", function(e) {
+    if (e.target.matches(".swiper-slide img")) {
+      modal.style.display = "block";
+      modalImg.src = e.target.src;
+      zoomLevel = 1;
+      modalImg.style.transform = "scale(1)";
+    }
+  });
+
+  // زر الإغلاق
+  closeModal.onclick = function() {
+    modal.style.display = "none";
+  };
+
+  // التكبير
+  zoomIn.onclick = function() {
+    zoomLevel += 0.2;
+    modalImg.style.transform = `scale(${zoomLevel})`;
+  };
+
+  // التصغير
+  zoomOut.onclick = function() {
+    zoomLevel = Math.max(0.4, zoomLevel - 0.2);
+    modalImg.style.transform = `scale(${zoomLevel})`;
+  };
+
+  // عند الضغط خارج الصورة، يغلق
+  modal.onclick = function(e) {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+
+  // دعم ESC للإغلاق
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+      modal.style.display = "none";
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+    <!--=============== SCROLLREVEAL ===============-->
+    <!-- <script src="assets/js/scrollreveal.min.js"></script> -->
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+    <!--=============== SWIPER JS ===============-->
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <!--=============== MIXITUP FILTER ===============-->
+    <script src="assets/js/mixitup.min.js"></script>
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
+	<script src="assets/js/swiper-bundle.min.js"></script>
+
+
+</body>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

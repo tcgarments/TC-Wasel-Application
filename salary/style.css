@@ -1,0 +1,204 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --muted: #667085;
+  --accent: #673ab7;
+  --accent2: #3f51b5;
+  --shadow: 0 8px 30px rgba(22, 28, 37, 0.08);
+  font-family: 'Cairo', system-ui, sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #1a1a1a;
+  direction: rtl;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ======= Header ======= */
+.topbar {
+  background: linear-gradient(90deg, #673ab7, #3f51b5);
+  padding: 20px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  text-align: center;
+  color: #fff;
+}
+.topbar h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+.topbar .subtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* ======= البحث ======= */
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+.search-panel .card h2 {
+  margin: 0 0 12px;
+  font-size: 17px;
+  color: var(--accent2);
+  font-weight: 700;
+}
+.form-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+.form-row label {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.form-row input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+}
+.btn.primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn.ghost {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+}
+
+/* ======= النتيجة ======= */
+.result-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+.salary-card {
+  width: 100%;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+  padding: 24px;
+  transform-origin: center;
+  transition: transform 0.2s ease;
+  animation: fadeIn 0.6s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ======= عنوان الفيو ======= */
+.salary-card .header-row {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #3f51b5, #673ab7);
+  color: #fff;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  letter-spacing: 0.5px;
+}
+.salary-card .header-row::after {
+  content: "💸";
+  display: block;
+  font-size: 15px;
+  margin-top: 6px;
+  font-weight: 500;
+  color: #ffeb3b;
+}
+
+/* ======= عرض البيانات ======= */
+.auto-table {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.section-block {
+  background: linear-gradient(90deg, #f8faff, #f3e5f5);
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: inset 0 0 8px rgba(63,81,181,0.1);
+  transition: transform 0.2s ease;
+}
+.section-block:hover {
+  transform: scale(1.01);
+}
+.section-block:nth-child(odd) {
+  background: linear-gradient(90deg, #f3e5f5, #e3f2fd);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 8px 0;
+}
+.row:last-child {
+  border-bottom: none;
+}
+.cell-title {
+  font-weight: 700;
+  color: #3f51b5;
+  font-size: 15px;
+}
+.cell-value {
+  color: #8e24aa;
+  font-weight: 700;
+  font-size: 15px;
+  text-align: left;
+}
+
+/* ======= responsive ======= */
+@media (max-width: 720px) {
+  .salary-card { transform: scale(0.95); padding: 20px; }
+}
+@media (max-width: 480px) {
+  .salary-card { transform: scale(0.9); padding: 16px; }
+}

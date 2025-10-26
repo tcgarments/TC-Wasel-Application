@@ -1,0 +1,85 @@
+* { box-sizing: border-box; }
+:root {
+  --accent: #3f51b5;
+  --accent2: #673ab7;
+  --bg: #f5f7fb;
+  --card: #fff;
+  --shadow: 0 8px 30px rgba(22, 28, 37, 0.08);
+  font-family: 'Cairo', sans-serif;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #222;
+  direction: rtl;
+}
+.page { min-height: 100vh; display: flex; flex-direction: column; }
+.container { max-width: 900px; margin: 20px auto; padding: 0 16px; }
+
+.topbar {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #fff; text-align: center; padding: 20px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.brand h1 { margin: 0; font-size: 24px; }
+.subtitle { margin-top: 4px; font-size: 14px; opacity: 0.8; }
+
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+h2 { margin: 0 0 12px; color: var(--accent2); }
+
+.form-row { display: flex; flex-direction: column; margin-bottom: 10px; }
+.form-row label { color: #666; font-size: 14px; margin-bottom: 6px; }
+.form-row input {
+  padding: 10px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px;
+}
+.actions { display: flex; gap: 8px; }
+.btn { padding: 10px 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; }
+.btn.primary { background: var(--accent); color: #fff; }
+.btn.ghost { border: 2px solid var(--accent); color: var(--accent); background: transparent; }
+
+.result-panel {
+  display: flex; justify-content: center; align-items: center;
+  min-height: 60vh; padding: 20px;
+}
+
+.salary-card {
+  width: 100%; max-width: 850px;
+  background: #fff; border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 24px;
+}
+
+.header-row {
+  text-align: center;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #fff; font-size: 18px; font-weight: 700;
+  padding: 14px; border-radius: 14px; margin-bottom: 18px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+th {
+  background: var(--accent);
+  color: white;
+  padding: 10px;
+}
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+td[contenteditable="true"] {
+  background: #fafafa;
+}
+button.btn.save {
+  background: #4caf50;
+  color: #fff;
+  margin-top: 15px;
+}

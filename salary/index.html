@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>كشف الاستحقاق — TC Garments</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 🌹 تدرجات وألوان مائلة للأحمر الدموي */
+    :root {
+      --blood-red: #8b0000;        /* أحمر دموي غامق */
+      --deep-crimson: #b30021;     /* كرزي غامق */
+      --wine: #400000;             /* نبيذي */
+      --footer-bg: linear-gradient(90deg, #2b0000, #400000, #2b0000);
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      margin: 0;
+      background-color: #fafafa;
+      color: #222;
+    }
+
+    header.topbar {
+      background: var(--footer-bg);
+      color: #fff;
+      text-align: center;
+      padding: 20px 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    header.topbar h1 {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: 1px;
+    }
+
+    header.topbar .subtitle {
+      color: #ffb3b3;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+
+    /* البطاقات */
+    .card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(139, 0, 0, 0.1);
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 600px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 16px rgba(139, 0, 0, 0.2);
+    }
+
+    .card h2 {
+      text-align: center;
+      color: var(--deep-crimson);
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      color: var(--wine);
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn.primary {
+      background: var(--deep-crimson);
+      color: white;
+    }
+
+    .btn.primary:hover {
+      background: var(--blood-red);
+      transform: scale(1.05);
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--deep-crimson);
+      border: 1px solid var(--deep-crimson);
+    }
+
+    .btn.ghost:hover {
+      background: var(--deep-crimson);
+      color: #fff;
+    }
+
+    /* ✅ فوتر متطور بألوان الأحمر الدموي */
+    .modern-footer {
+      background: var(--footer-bg);
+      color: #fff;
+      text-align: center;
+      padding: 20px 10px;
+      font-family: "Cairo", sans-serif;
+      font-size: 14px;
+      margin-top: 40px;
+      border-top: 2px solid #660000;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.3);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-link {
+      color: #ff6666;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: #ffcccc;
+      text-decoration: underline;
+    }
+
+    .support-btn {
+      background: #b30021;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .support-btn:hover {
+      background: #8b0000;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      .footer-content {
+        font-size: 13px;
+      }
+      .support-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+      }
+    }
+
+    /* 🧭 جعل الجدول أو النتيجة responsive */
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .result-panel {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background: var(--deep-crimson);
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background: #ffe6e6;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <h1>TC Garments</h1>
+        <p class="subtitle">نموذج كشف الاستحقاقات</p>
+      </div>
+    </header>
+
+    <section class="search-panel container">
+      <div class="card">
+        <h2>استعلام بيانات الموظف</h2>
+        <div class="form-row">
+          <label>الاسم الرباعي</label>
+          <input id="name" placeholder="أدخل الاسم الكامل">
+        </div>
+        <div class="form-row">
+          <label>الرقم القومي</label>
+          <input id="nid" placeholder="أدخل الرقم القومي">
+        </div>
+        <div class="form-row">
+          <label>الكود</label>
+          <input id="code" placeholder="أدخل الكود">
+        </div>
+        <div class="actions">
+          <button id="btnSearch" class="btn primary">عرض البيانات</button>
+          <button id="btnClear" class="btn ghost">محو الكل</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="result-panel container" id="resultPanel" aria-live="polite">
+      <!-- النتيجة تظهر هنا -->
+    </section>
+
+    <footer class="modern-footer">
+      <div class="footer-content">
+        <p>
+          &copy; 2026 كل الحقوق محفوظة لـ 
+          <a href="https://www.facebook.com/kadinioo" target="_blank" class="footer-link">
+            Kadysoft Ltd - Ahmed Elkady
+          </a>
+        </p>
+        <a href="https://wa.me/201555266002?text=مرحباً،%20أحتاج%20دعم%20فني%20من%20Kadysoft" 
+           target="_blank" 
+           class="support-btn">
+          💬 دعم فني عبر واتساب
+        </a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
