@@ -1,4 +1,4 @@
-// script.js — النسخة الجمالية الكاملة (مع جملة مصرية في الهيدر)
+
 const API_URL =
   "https://corsproxy.io/?" +
   encodeURIComponent(
@@ -12,6 +12,7 @@ document.getElementById("btnClear").addEventListener("click", () => {
   el("name").value = "";
   el("nid").value = "";
   el("code").value = "";
+  el("secretcode").value = "";
   el("resultPanel").innerHTML = "";
 });
 
@@ -19,21 +20,28 @@ async function checkData() {
   const name = el("name").value.trim();
   const nid = el("nid").value.trim();
   const code = el("code").value.trim();
+  const secretcode = el("secretcode").value.trim();
 
-  if (!name || !nid || !code) {
-    alert("من فضلك املأ الحقول الثلاثة (الاسم، الرقم القومي، الكود)");
+  // ✅ التحقق من الحقول الأربعة
+  if (!name || !nid || !code || !secretcode) {
+    alert("من فضلك املأ الحقول الأربعة (الاسم، الكود، الرقم القومي، والرقم السري)");
     return;
   }
 
   showLoading();
 
   try {
-    const res = await fetch(
-      `${API_URL}?name=${encodeURIComponent(name)}&nid=${encodeURIComponent(
-        nid
-      )}&code=${encodeURIComponent(code)}`
-    );
+    // ✅ إرسال الحقول الأربعة بما فيها الرقم السري
+    const query = new URLSearchParams({
+      name,
+      nid,
+      code,
+      secretcode
+    });
+
+    const res = await fetch(`${API_URL}?${query.toString()}`);
     const json = await res.json();
+
     hideLoading();
 
     if (json.success) {
@@ -54,6 +62,7 @@ async function checkData() {
   }
 }
 
+
 // 🎨 عرض النتيجة بشكل جمالي ومقسم
 function renderResult(d) {
   const entries = Object.entries(d);
@@ -69,7 +78,7 @@ function renderResult(d) {
     `);
 
     // كل 4 عناصر نعمل فاصل
-    if ((i + 1) % 4 === 0 || i === entries.length - 1) {
+    if ((i + 1) % 5 === 0 || i === entries.length - 1) {
       sectionsHtml += `
         <div class="section-block">
           ${group.join("")}
