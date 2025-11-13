@@ -58,7 +58,7 @@ function loadBasicFields(code) {
 
 ["name", "nid", "code", "email", "sheetType"].forEach(id => {
   el(id).addEventListener("input", saveBasicFields);
-  el(id).addEventListener("change", saveBasicFields); // للـ select
+  el(id).addEventListener("change", saveBasicFields);
 });
 
 // =========================
@@ -126,17 +126,17 @@ async function checkData() {
     hideLoading();
     el("resultPanel").innerHTML = `
       <div class="container"><div class="card">
-        <p style="color:#c0392b">⚠️ فشل الاتصال بالخادم. تأكد من اتصال الإنترنت.</p>
+        <p style="color:#c0392b">فشل الاتصال بالخادم. تأكد من اتصال الإنترنت.</p>
       </div></div>`;
   }
 }
 
 // =========================
-// عرض الجدول (العمود الرابع فقط قابل للتعديل)
+// عرض الجدول + زر Excel
 // =========================
 function renderTable(data) {
   const headers = data.headers;
-  const rows = data.sheetData.slice(1); // الصفوف المفلترة
+  const rows = data.sheetData.slice(1);
   const totalCols = headers.length;
 
   let table = `
@@ -162,13 +162,14 @@ function renderTable(data) {
     </table>
   </div>
   <div class="btn-container">
-    <button class="btn save" onclick="saveChanges()">💾 حفظ التعديلات</button>
-    <button class="btn load" onclick="loadLocalData()">📂 تحميل النسخة المحلية</button>
+    <button class="btn save" onclick="saveChanges()">حفظ التعديلات</button>
+    <button class="btn load" onclick="loadLocalData()">تحميل النسخة المحلية</button>
+    <button class="btn excel" onclick="exportToExcel()">تحميل Excel</button>
   </div>`;
 
   el("resultPanel").innerHTML = `
     <div class="salary-card fancy">
-      <div class="header-row">📊 دا البونص بتاع الموظفين بتوعك في شيت ${data.sheetName} . اكتب الحافز في العمود الرابع والباقي علينا 💪❤️</div>
+      <div class="header-row">دا البونص بتاع الموظفين بتوعك في شيت ${data.sheetName} . اكتب الحافز في العمود الرابع والباقي علينا</div>
       ${table}
     </div>`;
 
@@ -182,20 +183,71 @@ function renderTable(data) {
 }
 
 // =========================
+// تصدير الجدول إلى Excel (مع فحص العمود الرابع)
+// =========================
+function exportToExcel() {
+  const table = document.getElementById("editTable");
+  if (!table) {
+    alert("لا يوجد جدول لتصديره!");
+    return;
+  }
+
+  const rows = [...table.querySelectorAll("tbody tr")];
+  const data = rows.map(tr => 
+    [...tr.querySelectorAll("td")].map(td => td.textContent.trim())
+  );
+
+  // فحص العمود الرابع (index 3)
+  const emptyFourthColumn = data.some(row => !row[3] || row[3] === "");
+  if (emptyFourthColumn) {
+    alert("لا يمكن تصدير الملف!\nيوجد صفوف في العمود الرابع (الحافز) فارغة.\nيرجى ملء جميع الخانات أولاً.");
+    return;
+  }
+
+  // إضافة العناوين
+  const headers = [...table.querySelectorAll("thead th")].map(th => th.textContent.trim());
+  const fullData = [headers, ...data];
+
+  // إنشاء ورقة عمل
+  const ws = XLSX.utils.aoa_to_sheet(fullData);
+  
+  // تحسين عرض الأعمدة
+  const colWidths = headers.map((_, i) => {
+    const maxLength = Math.max(
+      headers[i]?.length || 0,
+      ...data.map(row => row[i]?.length || 0)
+    );
+    return { wch: Math.min(maxLength + 2, 50) };
+  });
+  ws['!cols'] = colWidths;
+
+  // إنشاء ملف Excel
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "البونص");
+
+  // اسم الملف
+  const fileName = `بونص_${currentCode}_${currentSheetType}.xlsx`;
+
+  // تصدير الملف
+  XLSX.writeFile(wb, fileName);
+  alert("تم تصدير الملف بنجاح!\nاسم الملف: " + fileName);
+}
+
+// =========================
 // تحميل النسخة المحلية يدويًا
 // =========================
 function loadLocalData() {
   const localData = loadLocalTable();
   if (localData) {
     populateTable(localData);
-    alert("✅ تم تحميل النسخة المحلية بنجاح");
+    alert("تم تحميل النسخة المحلية بنجاح");
   } else {
-    alert("❌ لا توجد نسخة محلية محفوظة لهذا المستخدم والشيت.");
+    alert("لا توجد نسخة محلية محفوظة لهذا المستخدم والشيت.");
   }
 }
 
 // =========================
-// ملء الجدول من البيانات المحلية
+// ملء الجدول من الب68يانات المحلية
 // =========================
 function populateTable(updates) {
   const tableEl = document.getElementById("editTable");
@@ -209,10 +261,7 @@ function populateTable(updates) {
 }
 
 // =========================
-// حفظ التعديلات على السيرفر + تخزين محلي تلقائي
-// =========================
-// =========================
-// حفظ التعديلات على السيرفر + تخزين محلي تلقائي
+// حفظ التعديلات على السيرفر + تخزين محلي
 // =========================
 async function saveChanges() {
   const table = document.getElementById("editTable");
@@ -222,30 +271,29 @@ async function saveChanges() {
     [...tr.querySelectorAll("td")].map(td => td.textContent.trim())
   );
 
-  // نحفظ النسخة محليًا أولًا دائمًا
   saveLocalTable(updates);
 
-  showLoading("💾 جاري حفظ التعديلات...");
+  showLoading("جاري حفظ التعديلات...");
   try {
     const res = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ sheetType: currentSheetType, updates, code: currentCode }) // أضفت code هنا
+      body: JSON.stringify({ sheetType: currentSheetType, updates, code: currentCode })
     });
 
-    const text = await res.text(); // corsproxy أحيانًا يرجع نص
+    const text = await res.text();
     const json = JSON.parse(text.includes("{") ? text : "{}");
 
     const success = json.success === true;
     el("resultPanel").innerHTML = `<div class="card">
-      <p style="color:${success ? "green" : "green"}">
-        ${json.message || (success ? "✅ تم الحفظ بنجاح (محليًا وسيرفر)" : "✅ تم الحفظ بنجاح (محليًا وسيرفر)")}
+      <p style="color:${success ? "green" : "red"}">
+        ${json.message || (success ? "تم الحفظ بنجاح (محليًا وسيرفر)" : "تم الحفظ محليًا فقط")}
       </p>
     </div>`;
     hideLoading();
   } catch (err) {
     hideLoading();
-    el("resultPanel").innerHTML = `<div class="card"><p style="color:red">⚠️ فشل الاتصال - تم حفظ نسخة محلية فقط</p></div>`;
+    el("resultPanel").innerHTML = `<div class="card"><p style="color:red">فشل الاتصال - تم حفظ نسخة محلية فقط</p></div>`;
   }
 }
 
@@ -257,7 +305,7 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
 }
 
-function showLoading(msg = "⏳ جاري التحقق من البيانات...") {
+function showLoading(msg = "جاري التحقق من البيانات...") {
   el("resultPanel").innerHTML = `<div class="container"><div class="card"><p>${msg}</p></div></div>`;
 }
 function hideLoading() {}
