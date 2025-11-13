@@ -5,7 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes" />
   <title>كشف الاستحقاق — TC Garments</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <!-- مكتبة SheetJS لتصدير Excel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    /* ... (نفس الـ CSS السابق بدون تغيير) ... */
+    html, body { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; font-family: "Cairo", sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
+    .container, .page { width: 100%; max-width: 100%; overflow: visible; box-sizing: border-box; }
+    .topbar { background: linear-gradient(90deg, #8b0000, #b22222); color: #fff; text-align: center; padding: 20px 10px; border-bottom: 3px solid #660000; }
+    .topbar .brand h1 { margin: 0; font-size: 24px; font-weight: 700; }
+    .subtitle { margin: 5px 0 0; font-size: 14px; color: #ffd6d6; }
+    .card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin: 20px auto; width: 95%; max-width: 600px; }
+    .card h2 { color: #8b0000; margin-bottom: 15px; }
+    .form-row { display: flex; flex-direction: column; margin-bottom: 10px; }
+    .form-row label { font-weight: 600; margin-bottom: 5px; }
+    .form-row input, .form-row select { padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; background: white; }
+    .actions { text-align: center; margin-top: 15px; }
+    .btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; margin: 5px; transition: all 0.3s ease; }
+    .btn.primary { background: #8b0000; color: #fff; }
+    .btn.primary:hover { background: #a31414; transform: scale(1.05); }
+    .btn.ghost { background: #eee; color: #444; }
+    .btn.ghost:hover { background: #ddd; }
+    .table-wrapper { width: 100%; max-width: 100%; overflow-x: auto; overflow-y: auto; max-height: 70vh; margin: 10px 0; direction: ltr; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); background: #fff; }
+    table.excel-like { border-collapse: collapse; width: 100%; background: #fff; direction: ltr; border: 1px solid #ccc; font-family: "Segoe UI", Tahoma, sans-serif; table-layout: auto; }
+    th, td { border: 1px solid #e0e0e0; padding: 10px 12px; text-align: left; font-size: 14px; white-space: nowrap; vertical-align: middle; }
+    thead th { background: #2c3e50; color: #fff; font-weight: 600; position: sticky; top: 0; z-index: 5; text-transform: capitalize; letter-spacing: 0.3px; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+    tbody tr:nth-child(even) { background: #fcfcfc; }
+    tbody tr:hover { background: #f1f8ff; }
+    .btn-container { text-align: center; margin-top: 14px; }
+    .btn.save { background: #27ae60; color: #fff; }
+    .btn.save:hover { background: #219150; transform: scale(1.03); }
+    .btn.load { background: #2980b9; color: #fff; }
+    .btn.load:hover { background: #1f6da8; transform: scale(1.03); }
+    .btn.excel { background: #1e7e34; color: #fff; }
+    .btn.excel:hover { background: #166d2a; transform: scale(1.03); }
+    @media (max-width: 768px) { th, td { padding: 8px 10px; font-size: 12.5px; } .table-wrapper { max-height: 65vh; } .card { width: 90%; } }
+    @media (max-width: 480px) { th, td { padding: 6px 8px; font-size: 12px; } .btn { width: 90%; display: block; margin: 8px auto; } }
+    .modern-footer { background: linear-gradient(90deg, #0d1117, #1a1f24); color: #fff; text-align: center; padding: 15px 10px; font-family: "Cairo", sans-serif; font-size: 14px; margin-top: 40px; border-top: 1px solid #2c313a; width: 100%; box-sizing: border-box; }
+    .footer-content { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .footer-link { color: #58a6ff; font-weight: 600; text-decoration: none; }
+    .footer-link:hover { color: #1f6feb; text-decoration: underline; }
+    .support-btn { background: #25d366; color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; }
+    .support-btn:hover { background: #1ebe5d; transform: scale(1.05); }
+    @media (max-width: 600px) { .footer-content { font-size: 13px; } .support-btn { padding: 6px 12px; font-size: 13px; } }
+  </style>
 </head>
 <body>
   <main class="page">
@@ -35,7 +77,6 @@
           <label>نوع الشيت</label>
           <select id="sheetType">
             <option value="Regular">Bonus</option>
-            <!--<option value="Irregular">Irregular</option>-->
           </select>
         </div>
         <div class="form-row">
@@ -51,333 +92,41 @@
 
     <section class="result-panel container" id="resultPanel" aria-live="polite"></section>
 
-<!-- ======================= CSS ======================= -->
-<style>
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x pan-y;
-  font-family: "Cairo", sans-serif;
-  background: #f5f5f5;
-  margin: 0;
-  padding: 0;
-}
+    <!-- Footer -->
+    <footer class="modern-footer">
+      <div class="footer-content">
+        <p>
+          &copy; 2026 كل الحقوق محفوظة لـ 
+          <a href="#" onclick="openExternalLink('https://www.facebook.com/kadinioo')" class="footer-link">
+            Kadysoft Ltd - Ahmed Elkady
+          </a>
+        </p>
+        <a href="#" 
+           onclick="openExternalLink('https://wa.me/201555266002?text=مرحباً،%20أحتاج%20دعم%20فني%20من%20Kadysoft')" 
+           class="support-btn">
+          تواصل مع الدعم الفني
+        </a>
+      </div>
+    </footer>
 
-.container, .page {
-  width: 100%;
-  max-width: 100%;
-  overflow: visible;
-  box-sizing: border-box;
-}
+    <script>
+      function openExternalLink(url) {
+        window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;package=com.android.chrome;scheme=https;end;";
+      }
+    </script>
 
-.topbar {
-  background: linear-gradient(90deg, #8b0000, #b22222);
-  color: #fff;
-  text-align: center;
-  padding: 20px 10px;
-  border-bottom: 3px solid #660000;
-}
-
-.topbar .brand h1 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.subtitle {
-  margin: 5px 0 0;
-  font-size: 14px;
-  color: #ffd6d6;
-}
-
-.card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  margin: 20px auto;
-  width: 95%;
-  max-width: 600px;
-}
-
-.card h2 {
-  color: #8b0000;
-  margin-bottom: 15px;
-}
-
-.form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-.form-row label {
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.form-row input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 15px;
-}
-
-.form-row select {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 15px;
-  background: white;
-}
-
-.actions {
-  text-align: center;
-  margin-top: 15px;
-}
-
-.btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-  margin: 5px;
-  transition: all 0.3s ease;
-}
-
-.btn.primary {
-  background: #8b0000;
-  color: #fff;
-}
-
-.btn.primary:hover {
-  background: #a31414;
-  transform: scale(1.05);
-}
-
-.btn.ghost {
-  background: #eee;
-  color: #444;
-}
-
-.btn.ghost:hover {
-  background: #ddd;
-}
-
-/* ✅ جدول النتائج */
-.table-wrapper {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: auto;
-  max-height: 70vh;
-  margin: 10px 0;
-  direction: ltr;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x pan-y;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  background: #fff;
-}
-
-table.excel-like {
-  border-collapse: collapse;
-  width: 100%;
-  background: #fff;
-  direction: ltr;
-  border: 1px solid #ccc;
-  font-family: "Segoe UI", Tahoma, sans-serif;
-  table-layout: auto;
-}
-
-th, td {
-  border: 1px solid #e0e0e0;
-  padding: 10px 12px;
-  text-align: left;
-  font-size: 14px;
-  white-space: nowrap;
-  vertical-align: middle;
-}
-
-thead th {
-  background: #2c3e50;
-  color: #fff;
-  font-weight: 600;
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  text-transform: capitalize;
-  letter-spacing: 0.3px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-}
-
-/* صفوف */
-tbody tr:nth-child(even) { background: #fcfcfc; }
-tbody tr:hover { background: #f1f8ff; }
-
-/* أزرار داخل الجدول */
-.btn-container {
-  text-align: center;
-  margin-top: 14px;
-}
-
-.btn.save {
-  background: #27ae60;
-  color: #fff;
-}
-
-.btn.save:hover {
-  background: #219150;
-  transform: scale(1.03);
-}
-
-.btn.load {
-  background: #2980b9;
-  color: #fff;
-}
-
-.btn.load:hover {
-  background: #1f6da8;
-  transform: scale(1.03);
-}
-
-/* 📱 تحسين العرض للموبايل */
-@media (max-width: 768px) {
-  th, td {
-    padding: 8px 10px;
-    font-size: 12.5px;
-  }
-
-  .table-wrapper {
-    max-height: 65vh;
-  }
-
-  .card {
-    width: 90%;
-  }
-}
-
-@media (max-width: 480px) {
-  th, td {
-    padding: 6px 8px;
-    font-size: 12px;
-  }
-
-  .btn {
-    width: 90%;
-    display: block;
-    margin: 8px auto;
-  }
-}
-
-
-/* ================= FOOTER ================= */
-.modern-footer {
-  background: linear-gradient(90deg, #0d1117, #1a1f24);
-  color: #fff;
-  text-align: center;
-  padding: 15px 10px;
-  font-family: "Cairo", sans-serif;
-  font-size: 14px;
-  margin-top: 40px;
-  border-top: 1px solid #2c313a;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.footer-link {
-  color: #58a6ff;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-link:hover {
-  color: #1f6feb;
-  text-decoration: underline;
-}
-
-.support-btn {
-  background: #25d366;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.support-btn:hover {
-  background: #1ebe5d;
-  transform: scale(1.05);
-}
-
-@media (max-width: 600px) {
-  .footer-content {
-    font-size: 13px;
-  }
-  .support-btn {
-    padding: 6px 12px;
-    font-size: 13px;
-  }
-}
-</style>
-
-
-<!-- ================= FOOTER ================= -->
-<footer class="modern-footer">
-  <div class="footer-content">
-    <p>
-      &copy; 2026 كل الحقوق محفوظة لـ 
-      <a href="#" onclick="openExternalLink('https://www.facebook.com/kadinioo')" class="footer-link">
-        ❤️ Kadysoft Ltd - Ahmed Elkady
-      </a>
-    </p>
-    <a href="#" 
-       onclick="openExternalLink('https://wa.me/201555266002?text=مرحباً،%20أحتاج%20دعم%20فني%20من%20Kadysoft%20🔥')" 
-       class="support-btn">
-      💬 تواصل مع الدعم الفني
-    </a>
-  </div>
-</footer>
-
-<script>
-function openExternalLink(url) {
-  // يجبر التطبيق على فتح الرابط في المتصفح الخارجي (مثل Chrome)
-  window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;package=com.android.chrome;scheme=https;end;";
-}
-</script>
-
-
+    <script>
+      document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function(e) {
+          if (this.href.includes('facebook.com')) {
+            e.preventDefault();
+            window.open(this.href, '_system');
+          }
+        });
+      });
+    </script>
 
   </main>
-  
-  <script>
-document.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    if (this.href.includes('facebook.com')) {
-      e.preventDefault();
-      window.open(this.href, '_system');
-    }
-  });
-});
-</script>
-
-  
   
   <script src="script.js"></script>
 </body>
