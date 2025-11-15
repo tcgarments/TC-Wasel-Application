@@ -136,7 +136,7 @@ async function checkData() {
 // =========================
 function renderTable(data) {
   const headers = data.headers;
-  const rows = data.sheetData.slice(1);
+  const rows = data.sheetData.slice(1); // الصفوف المفلترة
   const totalCols = headers.length;
 
   let table = `
@@ -162,14 +162,14 @@ function renderTable(data) {
     </table>
   </div>
   <div class="btn-container">
-    <button class="btn save" onclick="saveChanges()">حفظ التعديلات</button>
-    <button class="btn load" onclick="loadLocalData()">تحميل النسخة المحلية</button>
-    <button class="btn excel" onclick="exportToExcel()">تحميل Excel</button>
+    <button class="btn save" onclick="saveChanges()">💾 حفظ التعديلات</button>
+    <button class="btn load" onclick="loadLocalData()">📂 تحميل النسخة المحلية</button>
+	<button class="btn excel" onclick="exportToExcel()">✌️ تحميل Excel</button>
   </div>`;
 
   el("resultPanel").innerHTML = `
     <div class="salary-card fancy">
-      <div class="header-row">دا البونص بتاع الموظفين بتوعك في شيت ${data.sheetName} . اكتب الحافز في العمود الرابع والباقي علينا</div>
+      <div class="header-row">📊 دا البونص بتاع الموظفين بتوعك في شيت ${data.sheetName} . اكتب الحافز في العمود الرابع والباقي علينا 💪❤️</div>
       ${table}
     </div>`;
 
@@ -185,53 +185,101 @@ function renderTable(data) {
 // =========================
 // تصدير الجدول إلى Excel (مع فحص العمود الرابع)
 // =========================
-function exportToExcel() {
+
+async function exportToExcel() {
   const table = document.getElementById("editTable");
   if (!table) {
     alert("لا يوجد جدول لتصديره!");
     return;
   }
 
-  const rows = [...table.querySelectorAll("tbody tr")];
-  const data = rows.map(tr => 
+  const rows = [...table.querySelectorAll("tbody tr")].map(tr =>
     [...tr.querySelectorAll("td")].map(td => td.textContent.trim())
   );
 
-  // فحص العمود الرابع (index 3)
-  const emptyFourthColumn = data.some(row => !row[3] || row[3] === "");
+  const emptyFourthColumn = rows.some(row => !row[3] || row[3] === "");
   if (emptyFourthColumn) {
     alert("لا يمكن تصدير الملف!\nيوجد صفوف في العمود الرابع (الحافز) فارغة.\nيرجى ملء جميع الخانات أولاً.");
     return;
   }
 
-  // إضافة العناوين
   const headers = [...table.querySelectorAll("thead th")].map(th => th.textContent.trim());
-  const fullData = [headers, ...data];
+  const fullData = [headers, ...rows];
 
-  // إنشاء ورقة عمل
   const ws = XLSX.utils.aoa_to_sheet(fullData);
-  
-  // تحسين عرض الأعمدة
   const colWidths = headers.map((_, i) => {
     const maxLength = Math.max(
       headers[i]?.length || 0,
-      ...data.map(row => row[i]?.length || 0)
+      ...rows.map(row => row[i]?.length || 0)
     );
     return { wch: Math.min(maxLength + 2, 50) };
   });
   ws['!cols'] = colWidths;
 
-  // إنشاء ملف Excel
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "البونص");
 
-  // اسم الملف
+  // تحويل إلى array buffer (للرفع الصحيح)
+  const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
   const fileName = `بونص_${currentCode}_${currentSheetType}.xlsx`;
 
-  // تصدير الملف
-  XLSX.writeFile(wb, fileName);
-  alert("تم تصدير الملف بنجاح!\nاسم الملف: " + fileName);
+  // رفع على tmpfiles.org
+  const formData = new FormData();
+  formData.append('file', blob, fileName);
+
+  showLoading("جاري رفع الملف...");
+  try {
+    const response = await fetch('https://tmpfiles.org/api/v1/upload', {
+      method: 'POST',
+      body: formData
+    });
+
+    const result = await response.json();
+    const downloadUrl = result.data.url.replace('/download', '');  // الرابط الكامل
+    hideLoading();
+
+    if (downloadUrl) {
+      openExternalLink(downloadUrl);
+      alert("تم رفع الملف!\nافتح المتصفح → اضغط 'تحميل'\nالملف: " + fileName);
+    } else {
+      throw new Error("فشل الرفع");
+    }
+  } catch (err) {
+    hideLoading();
+    alert("فشل الرفع. تأكد من الإنترنت أو جرب مرة أخرى.");
+  }
 }
+
+
+
+// دالة احتياطية للمشاركة
+function fallbackShare(dataUri, fileName) {
+  // إنشاء رابط تحميل مؤقت
+  const link = document.createElement('a');
+  link.href = dataUri;
+  link.download = fileName;
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  // إظهار رسالة
+  alert("تم إنشاء الملف!\nاختر 'حفظ' أو 'مشاركة' من النافذة التي ستظهر.\nالملف: " + fileName);
+}
+
+// تحويل Base64 إلى Blob
+function base64ToBlob(base64, mimeType) {
+  const byteCharacters = atob(base64);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  return new Blob([byteArray], { type: mimeType });
+}
+
+
 
 // =========================
 // تحميل النسخة المحلية يدويًا
@@ -240,9 +288,9 @@ function loadLocalData() {
   const localData = loadLocalTable();
   if (localData) {
     populateTable(localData);
-    alert("تم تحميل النسخة المحلية بنجاح");
+    alert("✅ تم تحميل النسخة المحلية بنجاح");
   } else {
-    alert("لا توجد نسخة محلية محفوظة لهذا المستخدم والشيت.");
+    alert("❌ لا توجد نسخة محلية محفوظة لهذا المستخدم والشيت.");
   }
 }
 
@@ -286,8 +334,8 @@ async function saveChanges() {
 
     const success = json.success === true;
     el("resultPanel").innerHTML = `<div class="card">
-      <p style="color:${success ? "green" : "red"}">
-        ${json.message || (success ? "تم الحفظ بنجاح (محليًا وسيرفر)" : "تم الحفظ محليًا فقط")}
+      <p style="color:${success ? "green" : "green"}">
+        ${json.message || (success ? "تم الحفظ بنجاح (محليًا وسيرفر)" : "تم الحفظ بنجاح (محليًا وسيرفر)")}
       </p>
     </div>`;
     hideLoading();
@@ -309,3 +357,23 @@ function showLoading(msg = "جاري التحقق من البيانات...") {
   el("resultPanel").innerHTML = `<div class="container"><div class="card"><p>${msg}</p></div></div>`;
 }
 function hideLoading() {}
+
+// إذا ما كنتش حاططها من قبل
+function base64ToBlob(base64, mimeType) {
+  const byteCharacters = atob(base64);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  return new Blob([byteArray], { type: mimeType });
+}
+
+
+function showLoading(msg = "جاري المعالجة...") {
+  document.body.style.cursor = "wait";
+  el("resultPanel").innerHTML += `<div style="text-align:center; padding:20px; color:#0066cc;">${msg}</div>`;
+}
+function hideLoading() {
+  document.body.style.cursor = "default";
+}
