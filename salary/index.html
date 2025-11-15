@@ -6,6 +6,7 @@
   <title>كشف الاستحقاق — TC Garments</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
   
   
@@ -88,21 +89,26 @@
       <!-- النتيجة تظهر هنا -->
     </section>
 
-    <footer class="modern-footer">
-      <div class="footer-content">
-        <p>
-          &copy; 2026 كل الحقوق محفوظة لـ 
-          <a href="https://www.facebook.com/kadinioo" target="_blank" class="footer-link">
-            Kadysoft Ltd - Ahmed Elkady
-          </a>
-        </p>
-        <a href="https://wa.me/201555266002?text=مرحباً،%20أحتاج%20دعم%20فني%20من%20Kadysoft" 
-           target="_blank" 
-           class="support-btn">
-          💬 دعم فني عبر واتساب
-        </a>
-      </div>
-    </footer>
+<footer class="modern-footer">
+  <div class="footer-content">
+    <p>
+      &copy; 2026 كل الحقوق محفوظة لـ 
+      <a href="#" onclick="openExternalLink('https://www.facebook.com/kadinioo')" class="footer-link">
+        ❤️ Kadysoft Ltd - Ahmed Elkady
+      </a>
+    </p>
+    <a href="#" 
+       onclick="openExternalLink('https://wa.me/201555266002?text=مرحباً،%20أحتاج%20دعم%20فني%20من%20Kadysoft%20🔥')" 
+       class="support-btn">
+      💬 تواصل مع الدعم الفني
+    </a>
+  </div>
+</footer>
+
+
+
+
+
   </main>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -110,5 +116,26 @@
 
   
   <script src="script.js"></script>
+  
+  <script>
+function openExternalLink(url) {
+  window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;package=com.android.chrome;scheme=https;end;";
+}
+</script>
+  
+  <script>
+document.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    if (this.href.includes('facebook.com')) {
+      e.preventDefault();
+      window.open(this.href, '_system');
+    }
+  });
+});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+ 
+  
 </body>
 </html>
