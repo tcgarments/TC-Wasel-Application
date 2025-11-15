@@ -109,11 +109,10 @@
       </div>
     </footer>
 
-    <script>
-      function openExternalLink(url) {
-        window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;package=com.android.chrome;scheme=https;end;";
-      }
-    </script>
+
+
+
+   
 
     <script>
       document.querySelectorAll('a').forEach(link => {
@@ -129,5 +128,14 @@
   </main>
   
   <script src="script.js"></script>
+  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+ 
+ <script>
+function openExternalLink(url) {
+  window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;package=com.android.chrome;scheme=https;end;";
+}
+</script>
+  
 </body>
 </html>
