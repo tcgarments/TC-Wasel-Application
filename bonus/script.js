@@ -169,7 +169,10 @@ function renderTable(data) {
 
   el("resultPanel").innerHTML = `
     <div class="salary-card fancy">
-      <div class="header-row">📊 دا البونص بتاع الموظفين بتوعك في شيت ${data.sheetName} . اكتب الحافز في العمود الرابع والباقي علينا 💪❤️</div>
+      <div class="header-row" style="text-align:center; padding:20px; background:linear-gradient(90deg,#8b0000,#b22222); border-radius:18px; margin-bottom:25px; font-size:1.6rem; color:white; box-shadow:0 10px 30px rgba(139,0,0,0.4);">
+  البونص نزل يا معلم  
+  <br><span style="font-size:1.1rem; opacity:0.9;">اكتب الحافز في العمود الرابع واضغط "حفظ التعديلات"</span>
+</div>
       ${table}
     </div>`;
 
