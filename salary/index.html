@@ -1,141 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>كشف الاستحقاق — TC Garments</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>كشف الاستحقاق 2026 | TC Garments</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <style>
-  
-  
-  
-	
-	.export-buttons {
-  margin-top: 20px;
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-}
-
-.btn-export {
-  background-color: #007aff;
-  border: none;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-size: 15px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(0, 122, 255, 0.3);
-}
-
-.btn-export:hover {
-  background-color: #005fca;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 122, 255, 0.5);
-}
-
-.footer-msg {
-  color: #555;
-  margin-top: 25px;
-  line-height: 1.6;
-  font-weight: 500;
-}
-
-	
-	
-  </style>
-</head>
-
-<body>
-  <main class="page">
-    <header class="topbar">
-      <div class="brand">
-        <h1>TC Garments</h1>
-        <p class="subtitle">نموذج كشف الاستحقاقات</p>
-      </div>
-    </header>
-
-    <section class="search-panel container">
-      <div class="card">
-        <h2>استعلام بيانات الموظف</h2>
-        <div class="form-row">
-          <label>الاسم الرباعي</label>
-          <input id="name" placeholder="أدخل الاسم الكامل">
-        </div>
-        <div class="form-row">
-          <label>الرقم القومي</label>
-          <input id="nid" placeholder="أدخل الرقم القومي">
-        </div>
-        <div class="form-row">
-          <label>الكود</label>
-          <input id="code" placeholder="أدخل الكود">
-        </div>
-		<div class="form-row">
-          <label>الرقم السري</label>
-          <input id="secretcode" placeholder="أدخل الرقم السري">
-        </div>
-        <div class="actions">
-          <button id="btnSearch" class="btn primary">عرض البيانات</button>
-          <button id="btnClear" class="btn ghost">محو الكل</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="result-panel container" id="resultPanel" aria-live="polite">
-      <!-- النتيجة تظهر هنا -->
-    </section>
-
-<footer class="modern-footer">
-  <div class="footer-content">
-    <p>
-      &copy; 2026 كل الحقوق محفوظة لـ 
-      <a href="#" onclick="openExternalLink('https://www.facebook.com/kadinioo')" class="footer-link">
-        ❤️ Kadysoft Ltd - Ahmed Elkady
-      </a>
-    </p>
-    <a href="#" 
-       onclick="openExternalLink('https://wa.me/201555266002?text=مرحباً،%20أحتاج%20دعم%20فني%20من%20Kadysoft%20🔥')" 
-       class="support-btn">
-      💬 تواصل مع الدعم الفني
-    </a>
-  </div>
-</footer>
-
-
-
-
-
-  </main>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <h1>T&C Garments</h1>
+      <p class="subtitle">كشف الاستحقاقات الشهري</p>
+    </header>
 
-  
+    <div class="container">
+      <div class="card">
+        <h2>✨ ابحث عن كشف مرتبك الشهري</h2>
+        <input type="text" id="name" placeholder="الاسم الرباعي">
+        <input type="text" id="nid" placeholder="الرقم القومي">
+        <input type="text" id="code" placeholder="كود الموظف">
+        <input type="text" id="secretcode" placeholder="الرقم السري" type="password">
+        <div style="text-align:center; margin-top:25px;">
+          <button id="btnSearch" class="btn primary">🚀 عرض الكشف الآن</button>
+          <button id="btnClear" class="btn" style="background:rgba(255,255,255,0.2);margin-right:15px;">مسح</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="resultPanel"></div>
+
+    <footer class="modern-footer">
+      <p>© 2026 TC Garments × Kadysoft Ltd • كل الحقوق محفوظة</p>
+      <a href="#" onclick="openExternalLink('https://wa.me/201555266002')" class="support-btn">
+        💬 تواصل مع الدعم الفني (واتساب)
+      </a>
+    </footer>
+  </div>
+
   <script src="script.js"></script>
-  
   <script>
-function openExternalLink(url) {
-  window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;package=com.android.chrome;scheme=https;end;";
-}
-</script>
-  
-  <script>
-document.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    if (this.href.includes('facebook.com')) {
-      e.preventDefault();
-      window.open(this.href, '_system');
+    function openExternalLink(url) {
+      window.location.href = url;
     }
-  });
-});
-</script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
- 
-  
+  </script>
 </body>
 </html>
