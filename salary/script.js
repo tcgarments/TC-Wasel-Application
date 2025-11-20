@@ -77,18 +77,18 @@ function renderResult(d) {
     }
   });
 
-  const header = `
-    <div class="header-row">
-    دي تفاصيل مرتبك الشهر ده شوف الدنيا كده
-    </div>`;
+ const header = `
+  <div class="header-row">
+    💰 كشف استحقاقك الشهري يا وحش! 💰
+  </div>`;
 
-  // أزرار التصدير
-  const buttonsHtml = `
-    <div class="export-buttons">
-      <button class="btn-export" onclick="exportToExcel()">✌️ تحميل Excel</button>
-    </div>
-    <p class="footer-msg">شارك الكشف مع زمايك أو احفظه عندك</p>
-  `;
+const buttonsHtml = `
+  <div class="export-buttons">
+    <button class="btn-export" onclick="exportToExcel()">📊 تحميل Excel</button>
+  </div>
+  <center><h3 style="margin:30px 0; opacity:0.9;">
+    مجهودكم هو سر نجاحنا 🌟 تواصل معانا في أي وقت
+  </h3></center>`;
 
   const html = `
   <div class="container">
