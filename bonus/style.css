@@ -1,85 +1,339 @@
-* { box-sizing: border-box; }
-:root {
-  --accent: #3f51b5;
-  --accent2: #673ab7;
-  --bg: #f5f7fb;
-  --card: #fff;
-  --shadow: 0 8px 30px rgba(22, 28, 37, 0.08);
-  font-family: 'Cairo', sans-serif;
-}
-body {
-  margin: 0;
-  background: var(--bg);
-  color: #222;
-  direction: rtl;
-}
-.page { min-height: 100vh; display: flex; flex-direction: column; }
-.container { max-width: 900px; margin: 20px auto; padding: 0 16px; }
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;700&family=Tajawal:wght@700;900&display=swap');
 
-.topbar {
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  color: #fff; text-align: center; padding: 20px 0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.brand h1 { margin: 0; font-size: 24px; }
-.subtitle { margin-top: 4px; font-size: 14px; opacity: 0.8; }
+
+:root {
+  --primary: #8b0000;
+  --primary-dark: #630000;
+  --accent: #ffd700;
+  --accent-light: #fff8e1;
+  --glass: rgba(255, 255, 255, 0.12);
+  --border: rgba(255, 255, 255, 0.2);
+  --text: #ffffff;
+  --shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  --gold-glow: 0 0 30px rgba(255, 215, 0, 0.6);
+  --table-bg: #ffffff;
+  --table-border: #e2e8f0;
+  --table-hover: #ebf8ff;
+  --header-gradient: linear-gradient(90deg, #1e3a8a, #1e40af);
+}
+
+body {
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+  background: linear-gradient(-45deg, #1a0033, #2d0033, #4a004d, #8b0000);
+  background-size: 400% 400%;
+  animation: bgShift 20s ease infinite;
+  color: white;
+  min-height: 100vh;
+  direction: rtl;
+  overflow-x: hidden;
+}
+
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ==================== Header فخم ==================== */
+.topbar {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(15px);
+  padding: 25px 15px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar h1 {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, #ffd700, #ff6b6b, #ff4757);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--gold-glow);
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  margin-top: 8px;
+  opacity: 0.9;
+  letter-spacing: 1.5px;
+  color: #ffcccc;
+}
+
+/* ==================== الحاوية والكارت ==================== */
+.container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 15px;
+}
 
 .card {
-  background: var(--card);
-  border-radius: 14px;
-  padding: 18px;
+  background: var(--glass);
+  backdrop-filter: blur(18px);
+  border-radius: 24px;
+  padding: 32px;
+  border: 1px solid var(--border);
   box-shadow: var(--shadow);
-}
-h2 { margin: 0 0 12px; color: var(--accent2); }
-
-.form-row { display: flex; flex-direction: column; margin-bottom: 10px; }
-.form-row label { color: #666; font-size: 14px; margin-bottom: 6px; }
-.form-row input {
-  padding: 10px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px;
-}
-.actions { display: flex; gap: 8px; }
-.btn { padding: 10px 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; }
-.btn.primary { background: var(--accent); color: #fff; }
-.btn.ghost { border: 2px solid var(--accent); color: var(--accent); background: transparent; }
-
-.result-panel {
-  display: flex; justify-content: center; align-items: center;
-  min-height: 60vh; padding: 20px;
+  animation: float 8s ease-in-out infinite;
 }
 
-.salary-card {
-  width: 100%; max-width: 850px;
-  background: #fff; border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  padding: 24px;
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }
 
-.header-row {
+.card h2 {
   text-align: center;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  color: #fff; font-size: 18px; font-weight: 700;
-  padding: 14px; border-radius: 14px; margin-bottom: 18px;
+  font-size: 1.9rem;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #ffd700, #ffecd2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-table {
+/* ==================== الإنبوتس والاختيار ==================== */
+input, select {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-th {
-  background: var(--accent);
+  padding: 16px 18px;
+  margin: 12px 0;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   color: white;
-  padding: 10px;
+  font-size: 1.1rem;
+  transition: all 0.4s ease;
 }
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--gold-glow);
+  transform: scale(1.03);
 }
+
+input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+/* ==================== الأزرار ==================== */
+.btn {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn.primary {
+  background: linear-gradient(45deg, #8b0000, #b22222);
+  color: white;
+  box-shadow: 0 10px 30px rgba(139, 0, 0, 0.5);
+}
+
+.btn.primary:hover {
+  transform: translateY(-6px) scale(1.08);
+  box-shadow: 0 20px 40px rgba(139, 0, 0, 0.7);
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+}
+
+.btn.ghost:hover {
+  background: var(--accent);
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* ==================== الجدول الجديد: Excel-Like فاخر وواضح 100% ==================== */
+.table-wrapper {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  border: 2px solid var(--accent);
+  margin: 25px 0;
+  animation: slideUp 0.8s ease-out;
+  max-height: 70vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+table.excel-like {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: ltr;
+  background: var(--table-bg);
+}
+
+thead th {
+  background: var(--header-gradient);
+  color: #ffd700;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 16px 12px;
+  text-align: center;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  border-right: 1px solid #3b82f6;
+}
+
+thead th:first-child { border-radius: 18px 0 0 0; }
+thead th:last-child { border-radius: 0 18px 0 0; border-right: none; }
+
+/* ==================== تحديث لون النص داخل الجدول (واضح 100%) ==================== */
+tbody td {
+  padding: 14px 12px;
+  text-align: center;
+  border-bottom: 1px solid var(--table-border);
+  border-right: 1px solid var(--table-border);
+  font-size: 14.5px;
+  transition: all 0.2s ease;
+  background: #fdfdfe;
+  color: #1a1a1a !important;        /* نص أسود قوي وواضح */
+  font-weight: 600 !important;      /* خط أثقل شوية عشان يبان أكتر */
+}
+
+tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+/* العمود الرابع (الحافز) يفضل مميز بس نص أسود برضو */
 td[contenteditable="true"] {
-  background: #fafafa;
+  background: #fff8e1 !important;
+  border-left: 5px solid var(--accent) !important;
+  font-weight: 800 !important;
+  color: #92400e !important;        /* بني غامق عشان يبان على الأصفر الفاتح */
 }
-button.btn.save {
-  background: #4caf50;
-  color: #fff;
-  margin-top: 15px;
+
+/* لما تركز على الخلية */
+td[contenteditable="true"]:focus {
+  outline: 3px solid #f59e0b;
+  background: #fffbeb !important;
+  box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.3);
+  color: #7c2d12 !important;
+}
+
+/* أرقام الصفوف (العمود الأول) */
+tbody tr td:first-child {
+  font-weight: 800 !important;
+  color: #1e40af !important;
+  background: #eff6ff !important;
+}
+/* العمود الرابع (الحافز) - قابل للتعديل */
+td[contenteditable="true"] {
+  background: var(--accent-light) !important;
+  border-left: 5px solid var(--accent) !important;
+  font-weight: 700;
+  color: #b45309;
+}
+
+td[contenteditable="true"]:focus {
+  outline: 3px solid #fbbf24;
+  background: #fffbeb !important;
+  box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.3);
+}
+
+td[contenteditable="true"]::after {
+  content: " ✎";
+  color: #f59e0b;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* أرقام الصفوف */
+tbody tr td:first-child {
+  font-weight: 700;
+  color: #1e40af;
+  background: #eff6ff !important;
+}
+
+/* ==================== أزرار التحكم ==================== */
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+  padding: 0 10px;
+}
+
+.btn.save   { background: linear-gradient(45deg, #27ae60, #2ecc71); }
+.btn.load   { background: linear-gradient(45deg, #2980b9, #3498db); }
+.btn.excel  { background: linear-gradient(45deg, #1e7e34, #27ae60); }
+.btn.save:hover, .btn.load:hover, .btn.excel:hover {
+  transform: translateY(-8px) scale(1.1);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+/* ==================== الفوتر ==================== */
+.modern-footer {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(12px);
+  padding: 25px;
+  text-align: center;
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+}
+
+.support-btn {
+  background: #25d366;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s;
+}
+
+.support-btn:hover {
+  background: #1ebe5d;
+  transform: scale(1.12);
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 768px) {
+  .topbar h1 { font-size: 2.3rem; }
+  .card { padding: 24px; }
+  .btn-container { flex-direction: column; align-items: center; }
+  .btn { width: 80%; }
+  thead th, tbody td { padding: 10px 8px; font-size: 13px; }
+  .table-wrapper { border-radius: 14px; border-width: 1.5px; }
+  td[contenteditable="true"]::after { content: ""; }
 }
