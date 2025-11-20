@@ -133,40 +133,64 @@ body.light-theme {
 
 
 
+/* =============== ANA VODAFONE & SHOPPING APPS STYLE SLIDER =============== */
+.modern-slider-section {
+  padding: 20px 15px 10px;
+  background: transparent;
+}
 
-
-/*=============== IMAGE SLIDER SECTION ===============*/
-.image-slider {
+.modern-swiper {
   width: 100%;
-  height: 150px;
-  margin: 20px auto;
-  padding: 0;
+  padding: 10px 0;
+}
+
+.modern-swiper .swiper-slide {
+  border-radius: 22px !important;
   overflow: hidden;
-  border-radius: 16px;
-  background-color: var(--card-bg-color);
-  box-shadow: var(--card-shadow);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  height: auto;
 }
 
-.image-slider .swiper {
+.modern-swiper .swiper-slide img {
   width: 100%;
-  height: 100%;
-  border-radius: 16px;
-}
-
-.image-slider .swiper-slide {
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
-}
-
-.image-slider .swiper-slide img {
-  width: 100%;
-  height: 100%;
+  height: 200px;
   object-fit: cover;
-  border-radius: 16px;
   display: block;
+  border-radius: 22px;
 }
+
+.modern-swiper .swiper-slide-active {
+  transform: scale(1.02);
+  box-shadow: 0 15px 35px rgba(139, 0, 0, 0.18);
+}
+
+/* إخفاء الأسهم والنقط تمامًا (نظيف مثل Ana Vodafone) */
+.modern-swiper .swiper-button-next,
+.modern-swiper .swiper-button-prev,
+.modern-swiper .swiper-pagination {
+  display: none !important;
+}
+
+/* تأثيرات إضافية للدارك مود */
+body.dark-theme .modern-swiper .swiper-slide {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+body.dark-theme .modern-swiper .swiper-slide-active {
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+/* للموبايل والتابلت */
+@media (max-width: 768px) {
+  .modern-slider-section { padding: 15px 10px 5px; }
+  .modern-swiper .swiper-slide img { height: 180px; }
+  .modern-swiper .swiper-slide { border-radius: 18px !important; }
+}
+
+
+
+
 
 /* ✅ بدون pagination أو أزرار لتكون نظيفة */
 .image-slider .swiper-pagination {
@@ -261,11 +285,12 @@ body.dark-theme {
     <main class="main">
 	
 	<br><br>
-	<!--=============== IMAGE SLIDER (from JSON) ===============-->
-<section class="image-slider" id="image-slider">
-  <div class="swiper imageSwiper">
+	
+<!--=============== ANA VODAFONE STYLE SLIDER 2025 ===============-->
+<section class="modern-slider-section">
+  <div class="modern-swiper swiper">
     <div class="swiper-wrapper" id="imageSliderWrapper">
-      <!-- الصور هتتحمل ديناميكيًا من ملف JSON -->
+      <!-- الصور هتتحمل من JSON -->
     </div>
   </div>
 </section>
@@ -274,35 +299,51 @@ body.dark-theme {
 	
         <!--=============== HOME ===============-->
         <section class="home section" id="home">
-            <div class="home__container container grid">
-                <div class="home__data">
-                    <span class="home__greeting">اهلا بيك, احنا</span>
-                    <h1 class="home__name">HR Team Of</h1>
-					<h1 class="home__name">T&C Garments Company</h1>
-                    <h3 class="home__education">موجودين علشان نساعدك ونحل مشاكلك</h3>
+  <div class="home__container container grid">
+    <div class="home__data">
+      <span class="home__greeting">اهلا بيك, احنا</span>
+      <h1 class="home__name">HR Team Of</h1>
+      <h1 class="home__name">T&C Garments Company</h1>
+      <h3 class="home__education">موجودين علشان نساعدك ونحل مشاكلك</h3>
 
-                    <div class="home__button">
-                        <a href="about.html" class="button">عنا</a>
-                    </div>
-                </div>
+      <div class="home__button">
+        <a href="about.html" class="button">عنا</a>
+      </div>
+    </div>
 
-                <div class="home__handle">
-                    <img src="assets/img/perfil.png" alt="" width="500 px" height="700 px" class="home__img">
-                </div>
+    <div class="home__handle">
+      <img src="assets/img/perfil.png" alt="" width="500" height="700" class="home__img">
+    </div>
 
-                <div class="home__social">
-                    <a href="https://www.linkedin.com/company/tc-garments" target="_blank" class="home__social-link">
-                        <i class='bx bxl-linkedin'></i>
-                    </a>
-                    <a href="https://www.facebook.com/share/1FNMYHbPPs/?mibextid=wwXIfr" target="_blank" class="home__social-link">
-                        <i class='bx bxl-facebook'></i>
-                    </a>
-                    <a href="https://www.instagram.com/tcgarments_egy?igsh=MWhocGhodHBwaG93dw==" target="_blank" class="home__social-link">
-                        <i class='bx bxl-instagram'></i>
-                    </a>
-                </div>
-            </div>
-        </section>
+    <div class="home__social">
+      <a href="https://www.linkedin.com/company/tc-garments" 
+         target="_blank" 
+         class="home__social-link">
+        <i class='bx bxl-linkedin'></i>
+      </a>
+
+      <a href="#" 
+         onclick="openExternalLink('https://www.facebook.com/share/1FNMYHbPPs/?mibextid=wwXIfr')" 
+         class="home__social-link">
+        <i class='bx bxl-facebook'></i>
+      </a>
+
+      <a href="https://www.instagram.com/tcgarments_egy?igsh=MWhocGhodHBwaG93dw==" 
+         target="_blank" 
+         class="home__social-link">
+        <i class='bx bxl-instagram'></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+function openExternalLink(url) {
+  // يجبر Android يفتح الرابط في المتصفح الخارجي (Chrome أو أي متصفح افتراضي)
+  window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;package=com.android.chrome;scheme=https;end;";
+}
+</script>
+
 
 
 </main>
@@ -333,33 +374,39 @@ body.dark-theme {
     </ul>
 
     <!-- روابط التواصل -->
-    <ul class="footer__social">
-      <li class="footer__social-item">
-        <a href="https://www.facebook.com/share/1FNMYHbPPs/?mibextid=wwXIfr" target="_blank" class="footer__social-link facebook">
-          <i class='bx bxl-facebook'></i>
-        </a>
-      </li>
-      <li class="footer__social-item">
-        <a href="https://www.instagram.com/tcgarments_egy?igsh=MWhocGhodHBwaG93dw==" target="_blank" class="footer__social-link instagram">
-          <i class='bx bxl-instagram'></i>
-        </a>
-      </li>
-      <li class="footer__social-item">
-        <a href="https://www.linkedin.com/company/tc-garments" target="_blank" class="footer__social-link linkedin">
-          <i class='bx bxl-linkedin'></i>
-        </a>
-      </li>
-      
-    </ul>
+<ul class="footer__social">
+  <li class="footer__social-item">
+    <a href="#" onclick="openExternalLink('https://www.facebook.com/share/1FNMYHbPPs/?mibextid=wwXIfr')" class="footer__social-link facebook">
+      <i class='bx bxl-facebook'></i>
+    </a>
+  </li>
+  <li class="footer__social-item">
+    <a href="https://www.instagram.com/tcgarments_egy?igsh=MWhocGhodHBwaG93dw==" target="_blank" class="footer__social-link instagram">
+      <i class='bx bxl-instagram'></i>
+    </a>
+  </li>
+  <li class="footer__social-item">
+    <a href="https://www.linkedin.com/company/tc-garments" target="_blank" class="footer__social-link linkedin">
+      <i class='bx bxl-linkedin'></i>
+    </a>
+  </li>
+</ul>
 
-    <!-- حقوق الملكية -->
-    <span class="footer__copy">
-      &#169; 2026 
-      <a href="https://www.facebook.com/kadinioo" target="_blank" class="footer__credit">
-        Kadysoft - Ahmed Elkady
-      </a>
-      . جميع الحقوق محفوظة.
-    </span>
+<span class="footer__copy">
+  &#169; 2026 
+  <a href="#" onclick="openExternalLink('https://www.facebook.com/kadinioo')" class="footer__credit">
+    Kadysoft - Ahmed Elkady
+  </a>
+  . جميع الحقوق محفوظة.
+</span>
+
+<script>
+function openExternalLink(url) {
+  // يجبر Android يفتح المتصفح الخارجي (Chrome أو النظام)
+  window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;package=com.android.chrome;scheme=https;end;";
+}
+</script>
+
 	<ul class="footer__social">
 	<!-- دعم واتساب -->
       <li class="footer__social-item">
@@ -553,41 +600,50 @@ document.getElementById("footerMenuBtn").addEventListener("click", () => {
 
 
 
-
-
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const jsonUrl = "https://raw.githubusercontent.com/tcrecruitment2025/tcprojects/main/images.json"; // 🔁 غيّر بالرابط الفعلي للـ JSON على GitHub
+document.addEventListener("DOMContentLoaded", function () {
+  const jsonUrl = "https://raw.githubusercontent.com/tcrecruitment2025/tcprojects/main/images.json";
 
-    fetch(jsonUrl)
-      .then(response => response.json())
-      .then(data => {
-        const wrapper = document.getElementById("imageSliderWrapper");
-
-        if (data.images && Array.isArray(data.images)) {
-          data.images.forEach(url => {
-            const slide = document.createElement("div");
-            slide.classList.add("swiper-slide");
-            slide.innerHTML = `<img src="${url}" alt="Slider Image">`;
-            wrapper.appendChild(slide);
-          });
-
-          // تفعيل السلايدر بعد تحميل الصور
-          new Swiper(".imageSwiper", {
-            loop: true,
-            autoplay: {
-              delay: 10000,
-              disableOnInteraction: false,
-            },
-            speed: 1000,
-            effect: "slide",
-          });
-        }
-      })
-      .catch(error => {
-        console.error("❌ خطأ أثناء تحميل ملف JSON:", error);
+  fetch(jsonUrl)
+    .then(res => res.json())
+    .then(data => {
+      const wrapper = document.getElementById("imageSliderWrapper");
+      
+      data.images.forEach((url, index) => {
+        const slide = document.createElement("div");
+        slide.className = "swiper-slide";
+        slide.innerHTML = `
+          <img src="${url}" alt="عرض TC Garments ${index + 1}" loading="lazy">
+        `;
+        wrapper.appendChild(slide);
       });
-  });
+
+      // إعدادات السلايدر زي Ana Vodafone بالضبط
+      new Swiper(".modern-swiper", {
+        loop: true,
+        speed: 900,
+        spaceBetween: 16,
+        centeredSlides: true,
+        slidesPerView: 1.15,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        grabCursor: true,
+        effect: "slide",
+        
+        breakpoints: {
+          480: { slidesPerView: 1.2 },
+          768: { slidesPerView: 1.3 }
+        }
+      });
+    })
+    .catch(err => {
+      console.error("فشل تحميل الصور:", err);
+      document.querySelector(".modern-slider-section").innerHTML = 
+        "<p style='text-align:center;color:var(--text-color);padding:20px;'>جاري تحديث العروض...</p>";
+    });
+});
 </script>
 
 
@@ -742,6 +798,16 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
+<script>
+document.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    if (this.href.includes('facebook.com')) {
+      e.preventDefault();
+      window.open(this.href, '_system');
+    }
+  });
+});
+</script>
 
 
 
