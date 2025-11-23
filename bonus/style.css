@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;700&family=Tajawal:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@800;900&display=swap');
 
 * {
   margin: 0;
@@ -7,49 +7,40 @@
 }
 
 :root {
-  --primary: #8b0000;
-  --primary-dark: #630000;
+  --blood: #8B0000;
+  --blood-dark: #5c0000;
+  --blood-light: #a31111;
   --accent: #ffd700;
-  --accent-light: #fff8e1;
-  --glass: rgba(255, 255, 255, 0.12);
-  --border: rgba(255, 255, 255, 0.2);
+  --glass: rgba(20, 0, 0, 0.4);
+  --border: rgba(255, 215, 0, 0.25);
   --text: #ffffff;
-  --shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-  --gold-glow: 0 0 30px rgba(255, 215, 0, 0.6);
-  --table-bg: #ffffff;
-  --table-border: #e2e8f0;
-  --table-hover: #ebf8ff;
-  --header-gradient: linear-gradient(90deg, #1e3a8a, #1e40af);
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  --gold-glow: 0 0 25px rgba(255, 215, 0, 0.5);
 }
 
 body {
-  font-family: 'Cairo', 'Tajawal', sans-serif;
-  background: linear-gradient(-45deg, #1a0033, #2d0033, #4a004d, #8b0000);
-  background-size: 400% 400%;
-  animation: bgShift 20s ease infinite;
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(135deg, #0f0000, #1a0000, #2c0000, #450000);
+  background-size: 300% 300%;
+  animation: bloodFlow 18s ease infinite;
   color: white;
   min-height: 100vh;
   direction: rtl;
-  overflow-x: hidden;
+  line-height: 1.6;
 }
 
-@keyframes bgShift {
-  0% { background-position: 0% 50%; }
+@keyframes bloodFlow {
+  0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
-.page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+.page { display: flex; flex-direction: column; min-height: 100vh; }
 
-/* ==================== Header فخم ==================== */
+/* ==================== الهيدر أصغر وألطف ==================== */
 .topbar {
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(15px);
-  padding: 25px 15px;
+  backdrop-filter: blur(12px);
+  padding: 18px 12px;
   text-align: center;
   border-bottom: 1px solid var(--border);
   position: sticky;
@@ -59,34 +50,34 @@ body {
 
 .topbar h1 {
   font-family: 'Tajawal', sans-serif;
-  font-size: 3rem;
+  font-size: 2.4rem;
   font-weight: 900;
-  background: linear-gradient(90deg, #ffd700, #ff6b6b, #ff4757);
+  background: linear-gradient(90deg, #ffd700, #ff6b6b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: var(--gold-glow);
 }
 
 .subtitle {
-  font-size: 1.3rem;
-  margin-top: 8px;
+  font-size: 1.1rem;
+  margin-top: 6px;
   opacity: 0.9;
-  letter-spacing: 1.5px;
-  color: #ffcccc;
+  color: #ff9999;
+  font-weight: 600;
 }
 
-/* ==================== الحاوية والكارت ==================== */
+/* ==================== الكونتينر والكارت أصغر وأنظف ==================== */
 .container {
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 0 15px;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 16px;
 }
 
 .card {
   background: var(--glass);
-  backdrop-filter: blur(18px);
-  border-radius: 24px;
-  padding: 32px;
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 24px;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
   animation: float 8s ease-in-out infinite;
@@ -94,246 +85,199 @@ body {
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  50% { transform: translateY(-8px); }
 }
 
 .card h2 {
   text-align: center;
-  font-size: 1.9rem;
-  margin-bottom: 30px;
-  background: linear-gradient(90deg, #ffd700, #ffecd2);
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ffd700, #fff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* ==================== الإنبوتس والاختيار ==================== */
+/* ==================== الإنبوتس أصغر وأنظف ==================== */
 input, select {
   width: 100%;
-  padding: 16px 18px;
-  margin: 12px 0;
+  padding: 14px 16px;
+  margin: 10px 0;
   background: rgba(255,255,255,0.1);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 14px;
   color: white;
-  font-size: 1.1rem;
-  transition: all 0.4s ease;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 input:focus, select:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: var(--gold-glow);
-  transform: scale(1.03);
+  transform: scale(1.02);
+  background: rgba(255,255,255,0.15);
 }
 
 input::placeholder {
   color: rgba(255,255,255,0.6);
 }
 
-/* ==================== الأزرار ==================== */
+/* ==================== الأزرار أصغر وأرقى ==================== */
 .btn {
-  padding: 14px 32px;
+  padding: 12px 28px;
   border: none;
   border-radius: 50px;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
+  transition: all 0.35s ease;
 }
 
 .btn.primary {
-  background: linear-gradient(45deg, #8b0000, #b22222);
+  background: linear-gradient(45deg, var(--blood), var(--blood-light));
   color: white;
-  box-shadow: 0 10px 30px rgba(139, 0, 0, 0.5);
+  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
 }
 
 .btn.primary:hover {
-  transform: translateY(-6px) scale(1.08);
-  box-shadow: 0 20px 40px rgba(139, 0, 0, 0.7);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(139, 0, 0, 0.6);
 }
 
 .btn.ghost {
   background: transparent;
   border: 2px solid var(--accent);
   color: var(--accent);
+  font-weight: 700;
 }
 
 .btn.ghost:hover {
   background: var(--accent);
   color: #000;
-  transform: scale(1.05);
 }
 
-/* ==================== الجدول الجديد: Excel-Like فاخر وواضح 100% ==================== */
+/* ==================== الجدول أنظف وأصغر ==================== */
 .table-wrapper {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
   border: 2px solid var(--accent);
-  margin: 25px 0;
-  animation: slideUp 0.8s ease-out;
-  max-height: 70vh;
+  margin: 20px 0;
+  max-height: 65vh;
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 table.excel-like {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Cairo', sans-serif;
   direction: ltr;
-  background: var(--table-bg);
+  font-weight: 600;
+  font-size: 14px;
 }
 
 thead th {
-  background: var(--header-gradient);
+  background: linear-gradient(90deg, #5c0000, #8B0000);
   color: #ffd700;
-  font-weight: 700;
-  font-size: 15px;
-  padding: 16px 12px;
+  font-weight: 800;
+  padding: 14px 10px;
   text-align: center;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
+  font-size: 14px;
   position: sticky;
   top: 0;
   z-index: 10;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  border-right: 1px solid #3b82f6;
 }
 
-thead th:first-child { border-radius: 18px 0 0 0; }
-thead th:last-child { border-radius: 0 18px 0 0; border-right: none; }
-
-/* ==================== تحديث لون النص داخل الجدول (واضح 100%) ==================== */
 tbody td {
-  padding: 14px 12px;
+  padding: 12px 10px;
   text-align: center;
-  border-bottom: 1px solid var(--table-border);
-  border-right: 1px solid var(--table-border);
-  font-size: 14.5px;
-  transition: all 0.2s ease;
-  background: #fdfdfe;
-  color: #1a1a1a !important;        /* نص أسود قوي وواضح */
-  font-weight: 600 !important;      /* خط أثقل شوية عشان يبان أكتر */
+  border-bottom: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+  color: #1a1a1a !important;
+  font-weight: 600 !important;
+  background: #ffffff;
 }
 
-tbody tr:nth-child(even) {
-  background: #f8fafc;
-}
+tbody tr:nth-child(even) { background: #fdfdfd; }
+tbody tr:hover td { background: #fefce8 !important; }
 
-/* العمود الرابع (الحافز) يفضل مميز بس نص أسود برضو */
 td[contenteditable="true"] {
-  background: #fff8e1 !important;
-  border-left: 5px solid var(--accent) !important;
+  background: #fffbeb !important;
+  border-left: 4px solid var(--accent) !important;
+  color: #92400e !important;
   font-weight: 800 !important;
-  color: #92400e !important;        /* بني غامق عشان يبان على الأصفر الفاتح */
 }
 
-/* لما تركز على الخلية */
 td[contenteditable="true"]:focus {
   outline: 3px solid #f59e0b;
-  background: #fffbeb !important;
-  box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.3);
-  color: #7c2d12 !important;
+  background: #fff7cd !important;
 }
 
-/* أرقام الصفوف (العمود الأول) */
 tbody tr td:first-child {
+  background: #fefce8 !important;
+  color: #8B0000 !important;
   font-weight: 800 !important;
-  color: #1e40af !important;
-  background: #eff6ff !important;
-}
-/* العمود الرابع (الحافز) - قابل للتعديل */
-td[contenteditable="true"] {
-  background: var(--accent-light) !important;
-  border-left: 5px solid var(--accent) !important;
-  font-weight: 700;
-  color: #b45309;
 }
 
-td[contenteditable="true"]:focus {
-  outline: 3px solid #fbbf24;
-  background: #fffbeb !important;
-  box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.3);
-}
-
-td[contenteditable="true"]::after {
-  content: " ✎";
-  color: #f59e0b;
-  font-size: 12px;
-  opacity: 0.8;
-}
-
-/* أرقام الصفوف */
-tbody tr td:first-child {
-  font-weight: 700;
-  color: #1e40af;
-  background: #eff6ff !important;
-}
-
-/* ==================== أزرار التحكم ==================== */
+/* ==================== أزرار التحكم أصغر ==================== */
 .btn-container {
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
-  margin: 30px 0;
-  padding: 0 10px;
+  margin: 20px 0;
 }
 
-.btn.save   { background: linear-gradient(45deg, #27ae60, #2ecc71); }
-.btn.load   { background: linear-gradient(45deg, #2980b9, #3498db); }
-.btn.excel  { background: linear-gradient(45deg, #1e7e34, #27ae60); }
+.btn.save   { background: linear-gradient(45deg, #7f0000, #a31111); }
+.btn.load   { background: linear-gradient(45deg, #1e293b, #475569); }
+.btn.excel  { background: linear-gradient(45deg, #166534, #22c55e); }
+
 .btn.save:hover, .btn.load:hover, .btn.excel:hover {
-  transform: translateY(-8px) scale(1.1);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+  transform: translateY(-5px) scale(1.08);
 }
 
-/* ==================== الفوتر ==================== */
+/* ==================== الفوتر أصغر وألطف ==================== */
 .modern-footer {
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.5);
   backdrop-filter: blur(12px);
-  padding: 25px;
+  padding: 20px;
   text-align: center;
   margin-top: auto;
   border-top: 1px solid var(--border);
+  font-size: 0.95rem;
 }
 
 .support-btn {
-  background: #25d366;
+  background: #ff3333;
   color: white;
-  padding: 12px 28px;
+  padding: 10px 24px;
   border-radius: 50px;
-  text-decoration: none;
   font-weight: 700;
+  font-size: 0.95rem;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  transition: all 0.3s;
+  gap: 8px;
 }
 
 .support-btn:hover {
-  background: #1ebe5d;
-  transform: scale(1.12);
+  background: #ff5555;
+  transform: scale(1.08);
 }
 
-/* ==================== Responsive ==================== */
+/* ==================== موبايل مظبوط 100% ==================== */
 @media (max-width: 768px) {
-  .topbar h1 { font-size: 2.3rem; }
-  .card { padding: 24px; }
-  .btn-container { flex-direction: column; align-items: center; }
-  .btn { width: 80%; }
-  thead th, tbody td { padding: 10px 8px; font-size: 13px; }
-  .table-wrapper { border-radius: 14px; border-width: 1.5px; }
-  td[contenteditable="true"]::after { content: ""; }
+  .topbar h1 { font-size: 2rem; }
+  .topbar { padding: 14px 10px; }
+  .card { padding: 20px; border-radius: 16px; }
+  .card h2 { font-size: 1.4rem; }
+  input, select { padding: 13px; font-size: 0.98rem; }
+  .btn { padding: 11px 24px; font-size: 0.95rem; }
+  .btn-container { gap: 10px; flex-direction: column; align-items: center; }
+  .btn { width: 85%; }
+  thead th, tbody td { padding: 9px 6px; font-size: 13px; }
 }
