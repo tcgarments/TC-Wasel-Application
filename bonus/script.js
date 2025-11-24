@@ -244,7 +244,8 @@ async function exportToExcel() {
 
     if (downloadUrl) {
       openExternalLink(downloadUrl);
-      alert("تم رفع الملف!\nافتح المتصفح → اضغط 'تحميل'\nالملف: " + fileName);
+      //alert("تم رفع الملف!\nافتح المتصفح → اضغط 'تحميل'\nالملف: " + fileName);
+		alert("تم رفع الملف بنجاح\nهتلاقي زر Download اضغط عليه مرتين الملف ده هيتحمل\n"+fileName);
     } else {
       throw new Error("فشل الرفع");
     }
