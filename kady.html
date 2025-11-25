@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <!-- كل الـ head زي ما هو بالظبط، مش لمسته -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--=============== FAVICON ===============-->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="assets/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#a789d4">
+    <!--=============== BOXICONS ===============-->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!--=============== LOCAL CAIRO FONT ===============-->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {font-family: 'Cairo', sans-serif; font-weight: 600;}
+    </style>
+
+    <!-- استايلات البروفايل الجديدة فقط (مش بتأثر على باقي الصفحة) -->
+    <style>
+      .profile-hero {
+        padding: 100px 20px 50px;
+        text-align: center;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .profile-avatar {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 7px solid #fff;
+        box-shadow: 0 0 0 6px #e91e63, 0 0 50px rgba(233,30,99,0.6);
+        margin-bottom: 20px;
+        transition: all 0.4s ease;
+      }
+      .profile-avatar:hover {transform: scale(1.08);}
+      
+      .profile-name {
+        font-size: 28px;
+        font-weight: 900;
+        background: linear-gradient(135deg, #ff006e, #ff8a00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 10px 0;
+      }
+      .profile-title {
+        font-size: 18px;
+        color: #ff6b6b;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+      .profile-bio {
+        font-size: 16px;
+        max-width: 90%;
+        margin: 20px auto;
+        line-height: 1.8;
+        color: var(--text-color);
+        opacity: 0.9;
+      }
+      .update-app-btn {
+        background: linear-gradient(135deg, #ff006e, #ff4757);
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: 900;
+        cursor: pointer;
+        margin: 25px 0;
+        box-shadow: 0 10px 30px rgba(255,0,110,0.4);
+        transition: all 0.4s;
+      }
+      .update-app-btn:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(255,0,110,0.6);
+      }
+      .contact-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin: 30px 0;
+      }
+      .contact-btn {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        color: white;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        transition: all 0.4s;
+      }
+      .contact-btn:hover {
+        transform: translateY(-10px) scale(1.15);
+      }
+      .whatsapp-btn {background: linear-gradient(135deg, #25d366, #128c7e);}
+      .phone-btn {background: linear-gradient(135deg, #11998e, #38ef7d);}
+      .facebook-btn {background: linear-gradient(135deg, #1877f2, #1664c7);}
+      .email-btn {background: linear-gradient(135deg, #ea4335, #c5221f);}
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        max-width: 380px;
+        margin: 30px auto;
+      }
+      .stat-item {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        padding: 18px;
+        border-radius: 20px;
+        text-align: center;
+        border: 1px solid rgba(255,255,255,0.15);
+      }
+      .stat-value {
+        font-size: 22px;
+        font-weight: 900;
+        color: #fff;
+      }
+      .stat-label {
+        font-size: 13px;
+        color: rgba(255,255,255,0.8);
+        margin-top: 6px;
+      }
+
+      @media (max-width: 480px) {
+        .profile-avatar {width: 140px; height: 140px;}
+        .profile-name {font-size: 24px;}
+        .contact-btn {width: 60px; height: 60px; font-size: 28px;}
+      }
+    </style>
+</head>
+<body>
+
+    <!-- كل اللي فوق ده زي ما هو، مش لمسته -->
+
+    <!--=============== HEADER ===============-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">TC Wasel</a>
+            <div class="nav__menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="home.html" class="nav__link"><i class='bx bx-home'></i></a></li>
+                    <li class="nav__item active"><a href="about.html" class="nav__link"><i class='bx bx-user'></i></a></li>
+                    <li class="nav__item"><a href="notifications.html" class="nav__link"><i class='bx bx-notification'></i></a></li>
+                    <li class="nav__item"><a href="work.html" class="nav__link"><i class='bx bx-briefcase-alt-2'></i></a></li>
+                    <li class="nav__item"><a href="contact.html" class="nav__link"><i class='bx bx-message-square-dots'></i></a></li>
+                    <li class="nav__item"><a href="policies.html" class="nav__link"><i class='bx bx-detail'></i></a></li>
+					<li class="nav__item"><a href="kady.html" class="nav__link"><i class='bx bx-repost'></i></a></li>
+                </ul>
+            </div>
+            <i class='bx bx-moon change-theme change-theme-button' id="theme-button"></i>
+        </nav>
+    </header>
+
+    <!--=============== MAIN ===============-->
+    <main class="main">
+
+        <!-- المحتوى الجديد اللي ضفته بس (بروفايل انستا فاخر) -->
+        <section class="profile-hero">
+            <img src="assets/img/mylogo.png" alt="الملف الشخصي" class="profile-avatar">
+            
+            <h1 class="profile-name">Kadysoft Ltd</h1>
+            <div class="profile-title">Founder: KADINIO</div>
+            
+            <p class="profile-bio">
+                "نحن شركة برمجة شغوفة ومبتكرة نعمل على تقديم حلول تقنية قوية تساعد العملاء على النجاح. نتميز بالإبداع، الاحترافية، والجودة العالية في تنفيذ المشاريع لنصنع مستقبلًا رقميًا أفضل."
+            </p>
+
+            <button class="update-app-btn" onclick="window.location.href='https://www.mediafire.com/file/pr8463c0qqec1zt/TC_Wasel.apk/file'">
+                تحديث TC Wasel App
+            </button>
+
+            <div class="contact-buttons">
+                <a href="tel:+201555266002" class="contact-btn phone-btn"><i class='bx bx-phone'></i></a>
+                <a href="https://wa.me/201555266002" class="contact-btn whatsapp-btn"><i class='bx bxl-whatsapp'></i></a>
+                <a href="https://www.facebook.com/kadinioo" class="contact-btn facebook-btn"><i class='bx bxl-facebook'></i></a>
+                <a href="mailto:ahmed.elkady@tcgarments.com" class="contact-btn email-btn"><i class='bx bx-envelope'></i></a>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">ما لا نهاية</div>
+                    <div class="stat-label">الطموح</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">كتيييير اوووي</div>
+                    <div class="stat-label">الخبرة</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">كوكب الارض</div>
+                    <div class="stat-label">المكان</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">فوق الممتاز بفضل الله</div>
+                    <div class="stat-label">التقييم السنوي</div>
+                </div>
+            </div>
+        </section>
+        <!-- انتهى المحتوى الجديد -->
+        
+    </main>
+
+<!--=============== FOOTER ===============-->
+<footer class="footer">
+  <div class="footer__container container">
+    <h1 class="footer__title">TC Wasel</h1>
+
+    <!-- زر فتح القائمة -->
+    <button class="footer__menu-btn" id="footerMenuBtn">
+      <i class='bx bx-plus'></i>
+    </button>
+
+    <!-- قائمة الروابط -->
+    <ul class="footer__list" id="footerMenu">
+      <li class="footer__item"><a href="home.html" class="footer__link">الرئيسية</a></li>
+      <li class="footer__item"><a href="about.html" class="footer__link">عنا</a></li>
+      <li class="footer__item"><a href="notifications.html" class="footer__link">الإشعارات</a></li>
+      <li class="footer__item"><a href="work.html" class="footer__link">أعمالنا</a></li>
+      <li class="footer__item"><a href="contact.html" class="footer__link">اتصل بنا</a></li>
+      <li class="footer__item"><a href="policies.html" class="footer__link">سياساتنا</a></li>
+	  <li class="footer__item"><a href="kady.html" class="footer__link">المطور</a></li>
+      <li class="footer__item"><a href="salary/index.html" class="footer__link">سرك المرتب</a></li>
+      <li class="footer__item"><a href="bonus/index.html" class="footer__link">البونص</a></li>
+    </ul>
+
+    <!-- روابط التواصل -->
+<ul class="footer__social">
+  <li class="footer__social-item">
+    <a href="#" onclick="openExternalLink('https://www.facebook.com/share/1FNMYHbPPs/?mibextid=wwXIfr')" class="footer__social-link facebook">
+      <i class='bx bxl-facebook'></i>
+    </a>
+  </li>
+  <li class="footer__social-item">
+    <a href="https://www.instagram.com/tcgarments_egy?igsh=MWhocGhodHBwaG93dw==" target="_blank" class="footer__social-link instagram">
+      <i class='bx bxl-instagram'></i>
+    </a>
+  </li>
+  <li class="footer__social-item">
+    <a href="https://www.linkedin.com/company/tc-garments" target="_blank" class="footer__social-link linkedin">
+      <i class='bx bxl-linkedin'></i>
+    </a>
+  </li>
+</ul>
+
+<span class="footer__copy">
+  &#169; 2026 
+  <a href="#" onclick="openExternalLink('https://www.facebook.com/kadinioo')" class="footer__credit">
+    Kadysoft - Ahmed Elkady
+  </a>
+  . جميع الحقوق محفوظة.
+</span>
+
+<script>
+function openExternalLink(url) {
+  // يجبر Android يفتح المتصفح الخارجي (Chrome أو النظام)
+  window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;package=com.android.chrome;scheme=https;end;";
+}
+</script>
+
+	<ul class="footer__social">
+	<!-- دعم واتساب -->
+      <li class="footer__social-item">
+        <a href="https://wa.me/201555266002?text=مرحباً،%20أحتاج%20دعم%20فني%20من%20TC%20Wasel" 
+           target="_blank" 
+           class="footer__social-link whatsapp">
+          <i class='bx bxl-whatsapp'></i>
+        </a>
+      </li>
+	</ul>
+  </div>
+</footer>
+
+<style>
+.footer {
+  background: linear-gradient(135deg, #8b0000, #b22222);
+  color: #fff;
+  text-align: center;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer__title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+/* زر القائمة */
+.footer__menu-btn {
+  background: #fff;
+  color: #8b0000;
+  font-size: 1.8rem;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.footer__menu-btn:hover {
+  transform: rotate(45deg) scale(1.1);
+}
+
+/* قائمة الروابط */
+.footer__list {
+  list-style: none;
+  margin-top: 1rem;
+  padding: 0;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 10px 0;
+  width: 80%;
+  max-width: 320px;
+  backdrop-filter: blur(8px);
+}
+
+.footer__list.show {
+  display: flex;
+}
+
+.footer__link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.footer__link:hover {
+  color: #ffd6d6;
+}
+
+/* السوشيال */
+.footer__social {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  gap: 1rem;
+}
+
+.footer__social-link {
+  font-size: 1.6rem;
+  color: #fff;
+  transition: transform 0.3s, background 0.3s;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.footer__social-link:hover {
+  transform: scale(1.2);
+}
+
+/* ألوان خاصة بكل منصة */
+.facebook:hover { background: #1877f2; }
+.instagram:hover { background: #e1306c; }
+.linkedin:hover { background: #0a66c2; }
+.whatsapp:hover { background: #25d366; }
+
+/* حقوق الملكية */
+.footer__copy {
+  font-size: 0.9rem;
+  color: #f5f5f5;
+  margin-top: 1rem;
+}
+
+.footer__credit {
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.footer__credit:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* للموبايل */
+@media (min-width: 768px) {
+  .footer__list {
+    display: flex !important;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    background: transparent;
+    width: auto;
+    backdrop-filter: none;
+  }
+
+  .footer__menu-btn {
+    display: none;
+  }
+}
+</style>
+
+<script>
+document.getElementById("footerMenuBtn").addEventListener("click", () => {
+  document.getElementById("footerMenu").classList.toggle("show");
+});
+</script>
+	
+	
+	
+	<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const themeButton = document.getElementById("theme-button");
+    const lightTheme = "light-theme";
+    const iconTheme = "bx-sun";
+
+    // قيم الثيم المخزنة مسبقًا
+    const selectedTheme = localStorage.getItem("selected-theme");
+    const selectedIcon = localStorage.getItem("selected-icon");
+
+    // دوال التحقق من الثيم الحالي
+    const getCurrentTheme = () =>
+      document.body.classList.contains(lightTheme) ? "dark" : "light";
+    const getCurrentIcon = () =>
+      themeButton.classList.contains(iconTheme) ? "bx bx-moon" : "bx bx-sun";
+
+    // لو المستخدم اختار ثيم قبل كده
+    if (selectedTheme) {
+      document.body.classList[selectedTheme === "dark" ? "add" : "remove"](lightTheme);
+      themeButton.classList[selectedIcon === "bx bx-moon" ? "add" : "remove"](iconTheme);
+    }
+
+    // عند الضغط على الزر
+    themeButton.addEventListener("click", () => {
+      document.body.classList.toggle(lightTheme);
+      themeButton.classList.toggle(iconTheme);
+      // نحفظ الثيم الحالي
+      localStorage.setItem("selected-theme", getCurrentTheme());
+      localStorage.setItem("selected-icon", getCurrentIcon());
+    });
+  });
+</script>
+
+	
+	<script>
+document.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    if (this.href.includes('facebook.com')) {
+      e.preventDefault();
+      window.open(this.href, '_system');
+    }
+  });
+});
+</script>
+
+
+    <!--=============== SCROLLREVEAL ===============-->
+    <!-- <script src="assets/js/scrollreveal.min.js"></script> -->
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+    <!--=============== SWIPER JS ===============-->
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <!--=============== MIXITUP FILTER ===============-->
+    <script src="assets/js/mixitup.min.js"></script>
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
+	
+
+</body>
+
+
+</html>
