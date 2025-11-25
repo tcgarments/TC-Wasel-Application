@@ -9,149 +9,156 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Cairo',sans-serif;
+  background:#000;
+  color:#fff;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;     /* بدل space-between */
+  align-items:center;
+  overflow:hidden;
+  position:relative;
+  padding:10px 8px;            /* قلّلنا البادينج العام */
+}
 
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    font-family:'Cairo',sans-serif;
-    background:#000;
-    color:#fff;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    position:relative;
-  }
+/* أنيميشن الخلفية */
+.bg{position:fixed;inset:0;background:transparent;pointer-events:none;z-index:0}
+.dot{
+  position:absolute;
+  width:5px;height:5px;
+  background:#ff0040;
+  border-radius:50%;
+  box-shadow:0 0 15px #ff0040;
+  animation:float 14s infinite linear;
+}
+@keyframes float{
+  0%{transform:translateY(100vh) scale(0);}
+  100%{transform:translateY(-100px) scale(1);}
+}
 
-  /* أنيميشن خلفية نقط حمراء بتتحرك ببطء وبتلمع - جامد فشخ */
-  .bg{
-    position:fixed;
-    inset:0;
-    background:transparent;
-    pointer-events:none;
-    z-index:0;
-  }
-  .dot{
-    position:absolute;
-    width:6px;
-    height:6px;
-    background:#ff0040;
-    border-radius:50%;
-    box-shadow:0 0 20px #ff0040, 0 0 40px #ff0040;
-    animation:float 15s infinite linear;
-  }
-  @keyframes float{
-    0%{transform:translateY(100vh) scale(0);}
-    100%{transform:translateY(-100px) scale(1);}
-  }
+/* اللوجو صغّرناه */
+.logo{
+  width:95px;
+  height:95px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid #ff0040;
+  box-shadow:0 0 30px rgba(255,0,64,0.7);
+  margin-bottom:12px;          /* قلّلنا المسافة تحت اللوجو */
+  z-index:10;
+  animation:pulse 4s infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 30px rgba(255,0,64,0.7);}
+  50%{box-shadow:0 0 60px rgba(255,0,64,1);}
+}
 
-  /* اللوجو دايرة كبيرة في النص العلوي زي الإنستغرام */
-  .logo{
-    width:140px;
-    height:140px;
-    border-radius:50%;
-    object-fit:cover;
-    border:5px solid #ff0040;
-    box-shadow:0 0 40px rgba(255,0,64,0.8), 0 0 80px rgba(255,0,64,0.4);
-    margin-bottom:40px;
-    z-index:10;
-    animation:pulse 4s infinite;
-  }
-  @keyframes pulse{
-    0%,100%{box-shadow:0 0 40px rgba(255,0,64,0.8);}
-    50%{box-shadow:0 0 80px rgba(255,0,64,1), 0 0 120px rgba(255,0,64,0.6);}
-  }
+/* الكارت صغّرنا كل حاجة جواه */
+.card{
+  background:rgba(15,15,15,0.9);
+  backdrop-filter:blur(20px);
+  padding:22px 18px;           /* أقل من الأول */
+  border-radius:20px;
+  width:90%;
+  max-width:310px;             /* صغّرنا العرض شوية */
+  text-align:center;
+  border:1px solid rgba(255,0,64,0.3);
+  box-shadow:0 15px 40px rgba(0,0,0,0.8);
+  z-index:10;
+  margin-bottom:15px;          /* مسافة صغيرة قبل الفوتر */
+}
+h2{
+  color:#ff3366;
+  font-size:21px;              /* صغّرنا العنوان */
+  margin-bottom:12px;
+  text-shadow:0 0 15px #ff0040;
+}
+input{
+  width:100%;
+  padding:11px 15px;           /* أقل بادينج */
+  margin:7px 0;                /* مسافات أقل */
+  background:#111;
+  border:none;
+  border-radius:50px;
+  color:#fff;
+  font-size:15px;
+  outline:none;
+  border:2px solid transparent;
+  transition:all .3s;
+}
+input:focus{
+  border:2px solid #ff0040;
+  box-shadow:0 0 20px rgba(255,0,64,0.4);
+}
+input::placeholder{color:#ff336680}
+button{
+  width:100%;
+  padding:12px;
+  background:linear-gradient(145deg,#ff0040,#cc0033);
+  color:white;
+  border:none;
+  border-radius:50px;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
+  margin-top:10px;             /* مسافة أقل */
+  box-shadow:0 8px 25px rgba(255,0,64,0.5);
+  transition:all .3s;
+}
+button:hover:not(:disabled){
+  transform:translateY(-4px);
+  box-shadow:0 15px 40px rgba(255,0,64,0.7);
+}
+button:disabled{
+  background:#333;
+  box-shadow:none;
+}
+p#status{
+  margin-top:10px;
+  color:#ff3366;
+  font-weight:bold;
+  min-height:20px;
+  font-size:14px;
+}
 
-  /* الكارت */
-  .card{
-    background:rgba(15,15,15,0.85);
-    backdrop-filter:blur(20px);
-    padding:45px 35px;
-    border-radius:30px;
-    width:90%;
-    max-width:420px;
-    text-align:center;
-    border:1px solid rgba(255,0,64,0.3);
-    box-shadow:0 20px 60px rgba(0,0,0,0.8);
-    z-index:10;
-  }
+/* الفوتر في الأسفل دايمًا ومش هيحتاج سكرول */
+footer{
+  color:#666;
+  font-size:12px;
+  text-align:center;
+  z-index:10;
+  width:100%;
+  padding:0 10px;
+  position:fixed;      /* مهم جدًا */
+  bottom:10px;         /* مسافة صغيرة من تحت */
+  left:0;
+}
+.footer-link{color:#ff0040;text-decoration:none;font-weight:bold}
+.support-btn{
+  background:#25d366;
+  color:white;
+  padding:7px 18px;
+  border-radius:25px;
+  text-decoration:none;
+  margin-top:6px;
+  display:inline-block;
+  font-size:13px;
+}
 
-  h2{
-    color:#ff3366;
-    font-size:28px;
-    margin-bottom:30px;
-    text-shadow:0 0 20px #ff0040;
-  }
-
-  input{
-    width:100%;
-    padding:18px 22px;
-    margin:15px 0;
-    background:#111;
-    border:none;
-    border-radius:50px;
-    color:#fff;
-    font-size:17px;
-    outline:none;
-    border:2px solid transparent;
-    transition:all .4s;
-  }
-  input:focus{
-    border:2px solid #ff0040;
-    box-shadow:0 0 30px rgba(255,0,64,0.5);
-  }
-  input::placeholder{color:#ff336680}
-
-  /* الأزرار مستديرة + ظل أحمر-أسود ثقيل */
-  button{
-    width:100%;
-    padding:18px;
-    background:linear-gradient(145deg,#ff0040,#cc0033);
-    color:white;
-    border:none;
-    border-radius:50px;
-    font-size:19px;
-    font-weight:900;
-    cursor:pointer;
-    margin-top:20px;
-    box-shadow:0 10px 30px rgba(255,0,64,0.6), 0 20px 50px rgba(0,0,0,0.7);
-    transition:all .4s;
-  }
-  button:hover:not(:disabled){
-    transform:translateY(-6px);
-    box-shadow:0 20px 50px rgba(255,0,64,0.8), 0 30px 70px rgba(0,0,0,0.9);
-  }
-  button:disabled{
-    background:#333;
-    box-shadow:none;
-    transform:none;
-  }
-
-  p#status{
-    margin-top:20px;
-    color:#ff3366;
-    font-weight:bold;
-    min-height:30px;
-  }
-
-  footer{
-    margin-top:50px;
-    color:#666;
-    font-size:14px;
-    z-index:10;
-  }
-  .footer-link{color:#ff0040;text-decoration:none;font-weight:bold}
-  .support-btn{
-    background:#25d366;
-    color:white;
-    padding:10px 25px;
-    border-radius:30px;
-    text-decoration:none;
-    margin-top:10px;
-    display:inline-block;
-  }
+/* لو الشاشة صغيرة جدًا نصغر أكتر */
+@media (max-height: 680px), (max-width: 360px) {
+  .logo{width:80px;height:80px;margin-bottom:8px;}
+  .card{padding:18px 15px;max-width:280px;border-radius:16px;margin-bottom:10px;}
+  h2{font-size:19px;margin-bottom:10px;}
+  input{padding:10px 12px;font-size:14px;margin:6px 0;}
+  button{padding:11px;font-size:15px;margin-top:8px;}
+  footer{bottom:5px;font-size:11px;}
+  .support-btn{padding:6px 15px;}
+}
 </style>
 </head>
 <body>
@@ -173,25 +180,15 @@
   <a href="#" onclick="openExternalLink('https://wa.me/201555266002')" class="support-btn">الدعم الفني (واتساب)</a>
 </footer>
 
-<!-- أنيميشن النقط الحمراء الجامدة -->
+<!-- باقي السكربتات زي ما هي -->
 <script>
-setInterval(()=>{
-  const dot = document.createElement('div');
-  dot.classList.add('dot');
-  dot.style.left = Math.random()*100 + 'vw';
-  dot.style.animationDuration = (Math.random()*10 + 10) + 's';
-  document.getElementById('bg').appendChild(dot);
-  setTimeout(()=>dot.remove(), 20000);
-}, 300);
+setInterval(()=>{const d=document.createElement('div');d.classList.add('dot');d.style.left=Math.random()*100+'vw';d.style.animationDuration=(Math.random()*8+10)+'s';document.getElementById('bg').appendChild(d);setTimeout(()=>d.remove(),20000);},350);
 </script>
-
-<!-- كل السكربتات الأصلية بدون أي تغيير -->
 <script>
 function openExternalLink(url) {
   window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;package=com.android.chrome;scheme=https;end;";
 }
 </script>
-
 <script>
 const API_URL = "https://corsproxy.io/?" + encodeURIComponent("https://script.google.com/macros/s/AKfycby8B5XNXUvcTgeeQjgd4aHxyonwqQvN21sHQ0Uy4RAn92opu1hxaULfTmaGDhMSMswfDw/exec");
 const nameInput = document.getElementById("name");
@@ -252,11 +249,9 @@ function handleStatus(state) {
 function disableInputs() { nameInput.disabled = codeInput.disabled = btn.disabled = true; }
 function enableInputs() { nameInput.disabled = codeInput.disabled = btn.disabled = false; }
 </script>
-
 <script>
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
 </script>
 
 </body>
 </html>
-
