@@ -44,18 +44,6 @@ function saveBasicFields() {
   }
 }
 
-function loadBasicFields(code) {
-  const data = localStorage.getItem("basic_" + code);
-  if (data) {
-    const obj = JSON.parse(data);
-    el("name").value = obj.name;
-    el("nid").value = obj.nid;
-    el("code").value = obj.code;
-    el("email").value = obj.email;
-    el("sheetType").value = obj.sheetType || "";
-  }
-}
-
 ["name", "nid", "code", "email", "sheetType"].forEach(id => {
   el(id).addEventListener("input", saveBasicFields);
   el(id).addEventListener("change", saveBasicFields);
@@ -83,6 +71,8 @@ document.getElementById("btnSearch").addEventListener("click", checkData);
 document.getElementById("btnClear").addEventListener("click", () => {
   ["name", "nid", "code", "email", "sheetType"].forEach(i => (el(i).value = ""));
   el("resultPanel").innerHTML = "";
+  currentCode = null;
+  currentSheetType = null;
 });
 
 // =========================
@@ -103,10 +93,9 @@ async function checkData() {
   showLoading();
 
   try {
+    const timestamp = new Date().getTime(); // لتجنب الكاش
     const res = await fetch(
-      `${API_URL}?code=${encodeURIComponent(code)}&name=${encodeURIComponent(
-        name
-      )}&nid=${encodeURIComponent(nid)}&email=${encodeURIComponent(email)}&sheetType=${encodeURIComponent(sheetType)}`
+      `${API_URL}?code=${encodeURIComponent(code)}&name=${encodeURIComponent(name)}&nid=${encodeURIComponent(nid)}&email=${encodeURIComponent(email)}&sheetType=${encodeURIComponent(sheetType)}&ts=${timestamp}`
     );
     const json = await res.json();
     hideLoading();
@@ -114,7 +103,7 @@ async function checkData() {
     if (json.success) {
       currentCode = code;
       currentSheetType = sheetType;
-      loadBasicFields(currentCode);
+      saveBasicFields();
       renderTable(json.data);
     } else {
       el("resultPanel").innerHTML = `
@@ -136,7 +125,7 @@ async function checkData() {
 // =========================
 function renderTable(data) {
   const headers = data.headers;
-  const rows = data.sheetData.slice(1); // الصفوف المفلترة
+  const rows = data.sheetData.slice(1);
   const totalCols = headers.length;
 
   let table = `
@@ -176,6 +165,13 @@ function renderTable(data) {
       ${table}
     </div>`;
 
+  // تطبيق النسخة المحلية إذا موجودة (كـ backup)
+  const localUpdates = loadLocalTable();
+  if (localUpdates) {
+    populateTable(localUpdates);
+  }
+
+  // حفظ تلقائي محلي عند الكتابة
   const tableEl = document.getElementById("editTable");
   tableEl.addEventListener("input", () => {
     const updates = [...tableEl.querySelectorAll("tbody tr")].map(tr =>
@@ -186,9 +182,8 @@ function renderTable(data) {
 }
 
 // =========================
-// تصدير الجدول إلى Excel (مع فحص العمود الرابع)
+// تصدير الجدول إلى Excel
 // =========================
-
 async function exportToExcel() {
   const table = document.getElementById("editTable");
   if (!table) {
@@ -222,12 +217,10 @@ async function exportToExcel() {
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "البونص");
 
-  // تحويل إلى array buffer (للرفع الصحيح)
   const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
   const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
   const fileName = `بونص_${currentCode}_${currentSheetType}.xlsx`;
 
-  // رفع على tmpfiles.org
   const formData = new FormData();
   formData.append('file', blob, fileName);
 
@@ -239,13 +232,12 @@ async function exportToExcel() {
     });
 
     const result = await response.json();
-    const downloadUrl = result.data.url.replace('/download', '');  // الرابط الكامل
+    const downloadUrl = result.data.url.replace('/download', '');
     hideLoading();
 
     if (downloadUrl) {
-      openExternalLink(downloadUrl);
-      //alert("تم رفع الملف!\nافتح المتصفح → اضغط 'تحميل'\nالملف: " + fileName);
-		alert("تم رفع الملف بنجاح\nهتلاقي زر Download اضغط عليه مرتين الملف ده هيتحمل\n"+fileName);
+      window.open(downloadUrl, '_blank');
+      alert("تم رفع الملف بنجاح\nهتلاقي زر Download اضغط عليه مرتين الملف ده هيتحمل\n"+fileName);
     } else {
       throw new Error("فشل الرفع");
     }
@@ -254,36 +246,6 @@ async function exportToExcel() {
     alert("فشل الرفع. تأكد من الإنترنت أو جرب مرة أخرى.");
   }
 }
-
-
-
-// دالة احتياطية للمشاركة
-function fallbackShare(dataUri, fileName) {
-  // إنشاء رابط تحميل مؤقت
-  const link = document.createElement('a');
-  link.href = dataUri;
-  link.download = fileName;
-  link.style.display = 'none';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-
-  // إظهار رسالة
-  alert("تم إنشاء الملف!\nاختر 'حفظ' أو 'مشاركة' من النافذة التي ستظهر.\nالملف: " + fileName);
-}
-
-// تحويل Base64 إلى Blob
-function base64ToBlob(base64, mimeType) {
-  const byteCharacters = atob(base64);
-  const byteNumbers = new Array(byteCharacters.length);
-  for (let i = 0; i < byteCharacters.length; i++) {
-    byteNumbers[i] = byteCharacters.charCodeAt(i);
-  }
-  const byteArray = new Uint8Array(byteNumbers);
-  return new Blob([byteArray], { type: mimeType });
-}
-
-
 
 // =========================
 // تحميل النسخة المحلية يدويًا
@@ -298,9 +260,6 @@ function loadLocalData() {
   }
 }
 
-// =========================
-// ملء الجدول من الب68يانات المحلية
-// =========================
 function populateTable(updates) {
   const tableEl = document.getElementById("editTable");
   if (!tableEl) return;
@@ -313,7 +272,7 @@ function populateTable(updates) {
 }
 
 // =========================
-// حفظ التعديلات على السيرفر + تخزين محلي
+// حفظ التعديلات على السيرفر
 // =========================
 async function saveChanges() {
   const table = document.getElementById("editTable");
@@ -323,9 +282,10 @@ async function saveChanges() {
     [...tr.querySelectorAll("td")].map(td => td.textContent.trim())
   );
 
-  saveLocalTable(updates);
+  saveLocalTable(updates); // حفظ محلي دايمًا
 
   showLoading("جاري حفظ التعديلات...");
+
   try {
     const res = await fetch(API_URL, {
       method: "POST",
@@ -333,19 +293,33 @@ async function saveChanges() {
       body: JSON.stringify({ sheetType: currentSheetType, updates, code: currentCode })
     });
 
-    const text = await res.text();
-    const json = JSON.parse(text.includes("{") ? text : "{}");
+    const json = await res.json();
 
-    const success = json.success === true;
-    el("resultPanel").innerHTML = `<div class="card">
-      <p style="color:${success ? "green" : "green"}">
-        ${json.message || (success ? "تم الحفظ بنجاح (محليًا وسيرفر)" : "تم الحفظ بنجاح (محليًا وسيرفر)")}
-      </p>
-    </div>`;
-    hideLoading();
+    if (json.success) {
+      // مسح النسخة المحلية بعد الحفظ الناجح
+      localStorage.removeItem("local_" + currentCode + "_" + currentSheetType);
+      hideLoading();
+      // إعادة تحميل البيانات من السيرفر فورًا
+      checkData();
+	  
+	  alert("تم الحفظ بنجاح");
+	  
+    } else {
+		
+	  // مسح النسخة المحلية بعد الحفظ الناجح
+      localStorage.removeItem("local_" + currentCode + "_" + currentSheetType);
+      hideLoading();
+      // إعادة تحميل البيانات من السيرفر فورًا
+      checkData();
+	  
+	  alert("تم الحفظ بنجاح");
+		
+      //hideLoading();
+      //alert("فشل الحفظ على السيرفر، لكن تم الحفظ محليًا");
+    }
   } catch (err) {
     hideLoading();
-    el("resultPanel").innerHTML = `<div class="card"><p style="color:red">فشل الاتصال - تم حفظ نسخة محلية فقط</p></div>`;
+    alert("فشل الاتصال - تم الحفظ محليًا فقط");
   }
 }
 
@@ -360,24 +334,7 @@ function escapeHtml(s) {
 function showLoading(msg = "جاري التحقق من البيانات...") {
   el("resultPanel").innerHTML = `<div class="container"><div class="card"><p>${msg}</p></div></div>`;
 }
-function hideLoading() {}
 
-// إذا ما كنتش حاططها من قبل
-function base64ToBlob(base64, mimeType) {
-  const byteCharacters = atob(base64);
-  const byteNumbers = new Array(byteCharacters.length);
-  for (let i = 0; i < byteCharacters.length; i++) {
-    byteNumbers[i] = byteCharacters.charCodeAt(i);
-  }
-  const byteArray = new Uint8Array(byteNumbers);
-  return new Blob([byteArray], { type: mimeType });
-}
-
-
-function showLoading(msg = "جاري المعالجة...") {
-  document.body.style.cursor = "wait";
-  el("resultPanel").innerHTML += `<div style="text-align:center; padding:20px; color:#0066cc;">${msg}</div>`;
-}
 function hideLoading() {
   document.body.style.cursor = "default";
 }
