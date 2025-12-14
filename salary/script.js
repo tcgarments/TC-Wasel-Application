@@ -64,51 +64,63 @@ function renderResult(d) {
   const entries = Object.entries(d);
   let sectionsHtml = "";
   let group = [];
+
   entries.forEach(([key, value], i) => {
-    group.push(`
+    let displayValue = value;
+
+    // إخفاء الرقم السري في العرض فقط
+    if (key.trim() === "الرقم السري" ||
+        key.trim() === "الرقم السرى" ||
+        key.trim() === "الرقم السري" ||		
+        key.trim() === "secretcode" || 
+        key.toLowerCase().includes("secret")) {
+      displayValue = "••••••"; // أو يمكنك عمل طول ديناميكي: "*".repeat(String(value).length)
+    }
+
+    group.push(
       <div class="row">
         <div class="cell-title">${escapeHtml(key)}</div>
-        <div class="cell-value">${escapeHtml(value)}</div>
+        <div class="cell-value">${escapeHtml(displayValue)}</div>
       </div>
-    `);
+    );
+
     if ((i + 1) % 5 === 0 || i === entries.length - 1) {
-      sectionsHtml += `
+      sectionsHtml += 
         <div class="section-block">
           ${group.join("")}
-        </div>
-      `;
+        </div>;
       group = [];
     }
   });
 
- const header = `
-  <div class="header-row">
-    💰 كشف استحقاقك الشهري يا وحش! 💰
-  </div>`;
+  // باقي الكود كما هو...
+  const header = 
+    <div class="header-row">
+      💰 كشف استحقاقك الشهري يا وحش! 💰
+    </div>;
 
-const buttonsHtml = `
-  <div class="export-buttons">
-    <button class="btn-export" onclick="exportToExcel()">📊 تحميل Excel</button>
-  </div>
-  <center><h3 style="margin:30px 0; opacity:0.9;">
-    مجهودكم هو سر نجاحنا 🌟 تواصل معانا في أي وقت
-  </h3></center>`;
-
-  const html = `
-  <div class="container">
-    <div class="salary-card fancy" id="salaryCard">
-      ${header}
-      <div class="auto-table">${sectionsHtml}</div>
-      <center><h3>مجهودكم مقدر . تواصلنا يفتح ابوابا لحلول افضل . نحن نستمع اليكم دائما</h3></center>
-      ${buttonsHtml}
+  const buttonsHtml = 
+    <div class="export-buttons">
+      <button class="btn-export" onclick="exportToExcel()">📊 تحميل Excel</button>
     </div>
-  </div>`;
+    <center><h3 style="margin:30px 0; opacity:0.9;">
+      مجهودكم هو سر نجاحنا 🌟 تواصل معانا في أي وقت
+    </h3></center>;
+
+  const html = 
+    <div class="container">
+      <div class="salary-card fancy" id="salaryCard">
+        ${header}
+        <div class="auto-table">${sectionsHtml}</div>
+        <center><h3>مجهودكم مقدر . تواصلنا يفتح ابوابا لحلول افضل . نحن نستمع اليكم دائما</h3></center>
+        ${buttonsHtml}
+      </div>
+    </div>;
 
   el("resultPanel").innerHTML = html;
   el("resultPanel").scrollIntoView({ behavior: "smooth" });
 
-  // حفظ البيانات مؤقتًا للتصدير
-  window.currentSalaryData = d;
+  window.currentSalaryData = d; // القيمة الحقيقية محفوظة هنا للتصدير
 }
 
 
