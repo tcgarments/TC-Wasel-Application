@@ -1,7 +1,7 @@
 const API_URL =
   "https://corsproxy.io/?" +
   encodeURIComponent(
-    "https://script.google.com/macros/s/AKfycbyjFQmNJ1QDl-7PMRpkpuC4SCFBdL-TywrOoxBoG-P4BzM36nPXEEH7QxPTsFOwuLJd/exec"
+    "https://script.google.com/macros/s/AKfycbzvkYGZThNwJWnghtXlZhcySgQBUnIkTLdTBSiiYStsQUKeQWTuy4hp139gzgUe9XIZ/exec"
   );
 const el = id => document.getElementById(id);
 document.getElementById("btnSearch").addEventListener("click", checkData);
@@ -20,20 +20,24 @@ async function checkData() {
   const nid = el("nid").value.trim();
   const code = el("code").value.trim();
   const secretcode = el("secretcode").value.trim();
+  const year = el("year").value.trim();
+  const month = el("month").value.trim();
   // ✅ التحقق من الحقول الأربعة
-  if (!name || !nid || !code || !secretcode) {
-    alert("من فضلك املأ الحقول الأربعة (الاسم، الكود، الرقم القومي، والرقم السري)");
-    return;
-  }
+  if (!name || !nid || !code || !secretcode || !year || !month) {
+  alert("من فضلك املأ جميع الحقول (الاسم، الكود، الرقم القومي، الرقم السري، السنة، الشهر)");
+  return;
+}
   showLoading();
   try {
     // ✅ إرسال الحقول الأربعة بما فيها الرقم السري
     const query = new URLSearchParams({
-      name,
-      nid,
-      code,
-      secretcode
-    });
+  name,
+  nid,
+  code,
+  secretcode,
+  year,
+  month
+});
     const res = await fetch(`${API_URL}?${query.toString()}`);
     const json = await res.json();
     hideLoading();
@@ -187,7 +191,7 @@ async function exportToExcel() {
     if (downloadUrl) {
       openExternalLink(downloadUrl);
       //alert("تم رفع الملف!\nافتح المتصفح → اضغط 'تحميل'\nالملف: " + fileName);
-      alert("تم رفع الملف بنجاح\nهتلاقي زر Download اضغط عليه مرتين الملف ده هيتحمل\n"+fileName);
+	  alert("تم رفع الملف بنجاح\nهتلاقي زر Download اضغط عليه مرتين الملف ده هيتحمل\n"+fileName);
     } else {
       throw new Error("فشل الرفع");
     }
